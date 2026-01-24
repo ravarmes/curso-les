@@ -184,6 +184,37 @@ BODY
 	font-size: medium;
 }
 
+BODY.pageView
+{
+	margin: 0;
+	padding-bottom: 40px;
+}
+
+.pageFooter
+{
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	padding: 8px 12px;
+	font-size: 12px;
+	text-align: center;
+	background: rgba(255, 255, 255, 0.92);
+	border-top: 1px solid #e0e0e0;
+	z-index: 20;
+}
+
+.pageFooter A
+{
+	color: #333333;
+	text-decoration: none;
+}
+
+.pageFooter A:hover
+{
+	text-decoration: underline;
+}
+
 DIV
 {
 	margin:0;
