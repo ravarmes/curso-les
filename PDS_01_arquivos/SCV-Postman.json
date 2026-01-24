@@ -1,0 +1,2975 @@
+{
+	"info": {
+		"_postman_id": "ad65906b-f1ca-9b90-78a0-9a264e0843af",
+		"name": "scv-backend-spring localhost",
+		"description": "Sistema de Controle da Videolocadora",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "artistas",
+			"item": [
+				{
+					"name": "http://localhost:8080/artistas/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/artistas/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"artistas",
+								""
+							]
+						},
+						"description": "Listando todos os artistas"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/artistas/1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/artistas/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"artistas",
+								"1"
+							]
+						},
+						"description": "Listando um artista"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/artistas",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"nome\": \"Jean Claude Van Damme\",\r\n    \"imagem\": \"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\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/artistas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"artistas"
+							]
+						},
+						"description": "Inserindo um artista"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/artistas/inserirfile",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "artista",
+									"value": "{\n    \"nome\": \"Artista Inserido\"\n}",
+									"contentType": "",
+									"type": "text"
+								},
+								{
+									"key": "artistaImagem",
+									"contentType": "",
+									"type": "file",
+									"src": "/C:/ws/scv-imagens/scv-backend-spring/src/main/resources/static/images/artista1.png"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/artistas/insertfile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"artistas",
+								"insertfile"
+							]
+						},
+						"description": "Inserindo um artista"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/artistas/1",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"nome\": \"Jean Alterado\",\r\n    \"imagem\": \"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\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/artistas/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"artistas",
+								"1"
+							]
+						},
+						"description": "Alterando um artista"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/artistas/1 Copy",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "artista",
+									"value": " {\n    \"id\": 1,\n    \"nome\": \"Artista Alterado\"\n}",
+									"type": "text"
+								},
+								{
+									"key": "artistaImagem",
+									"type": "file",
+									"src": "/C:/ws/scv-imagens/scv-backend-spring/src/main/resources/static/images/artista7.png"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/artistas/updatefile/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"artistas",
+								"updatefile",
+								"1"
+							]
+						},
+						"description": "Alterando um artista"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/artistas/1",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/artistas/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"artistas",
+								"6"
+							]
+						},
+						"description": "Deletando um artista"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "bairros",
+			"item": [
+				{
+					"name": "http://localhost:8080/bairros/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/bairros/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bairros",
+								""
+							]
+						},
+						"description": "Listando todos os bairros"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/bairros/1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/bairros/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bairros",
+								"1"
+							]
+						},
+						"description": "Listando um bairro"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/bairros",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\t{\r\n        \"id\": 9,\r\n        \"nome\": \"Bairro Inserido\",\r\n        \"cidade\": {\r\n            \"id\": 1,\r\n            \"nome\": \"Alegre\",\r\n            \"uf\": {\r\n                \"sigla\": \"ES\",\r\n                \"nome\": \"Espírito Santo\"\r\n            }\r\n        }\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/bairros",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bairros"
+							]
+						},
+						"description": "Inserindo um bairro"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/bairros/2",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\t{\r\n        \"id\": 2,\r\n        \"nome\": \"Bairro Alterado\",\r\n        \"cidade\": {\r\n            \"id\": 1,\r\n            \"nome\": \"Alegre\",\r\n            \"uf\": {\r\n                \"sigla\": \"ES\",\r\n                \"nome\": \"Espírito Santo\"\r\n            }\r\n        }\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/bairros/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bairros",
+								"2"
+							]
+						},
+						"description": "Alterando um bairro"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/bairros/1",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/bairros/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bairros",
+								"1"
+							]
+						},
+						"description": "Deletando um bairro"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "030e7cc7-05f6-4971-873a-3c6711568dec",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ffad791-c049-47ea-8fc1-2cab699ec167",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "cidades",
+			"item": [
+				{
+					"name": "http://localhost:8080/cidades/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/cidades/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cidades",
+								""
+							]
+						},
+						"description": "Listando todas as cidades"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/cidades/1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/cidades/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cidades",
+								"1"
+							]
+						},
+						"description": "Listando uma cidade"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/cidades",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Cidade Inserida\",\r\n    \"uf\": {\r\n        \"id\": 1\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/cidades",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cidades"
+							]
+						},
+						"description": "Inserindo uma cidade"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/cidades/1",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"nome\": \"Cidade Alterada\",\r\n    \"uf\": {\r\n        \"id\": 1,\r\n        \"sigla\": \"ES\",\r\n        \"nome\": \"Espírito Santo\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/cidades/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cidades",
+								"1"
+							]
+						},
+						"description": "Alterando uma cidade"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/cidades/1",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/cidades/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cidades",
+								"3"
+							]
+						},
+						"description": "Deletando uma cidade"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/cidades/findByUf/1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/cidades/findByUf/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cidades",
+								"findByUf",
+								"1"
+							]
+						},
+						"description": "Listando cidades por UF"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "030e7cc7-05f6-4971-873a-3c6711568dec",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ffad791-c049-47ea-8fc1-2cab699ec167",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "clientes",
+			"item": [
+				{
+					"name": "http://localhost:8080/clientes/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/clientes/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"clientes",
+								""
+							]
+						},
+						"description": "Listando todos clientes"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/clientes/1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/clientes/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"clientes",
+								"1"
+							]
+						},
+						"description": "Selecionando um cliente"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/clientes",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n        \"id\": 3,\r\n        \"nome\": \"Cliente Inserido\",\r\n        \"cpf\": \"333.333.333-33\",\r\n        \"rua\": \"Rua x\",\r\n        \"numero\": \"15\",\r\n        \"bairro\": {\r\n            \"id\": 3,\r\n            \"nome\": \"Maria Ortiz\",\r\n            \"cidade\": {\r\n                \"id\": 2,\r\n                \"nome\": \"Cachoeiro de Itapemirim\",\r\n                \"uf\": {\r\n                    \"sigla\": \"ES\",\r\n                    \"nome\": \"Espírito Santo\"\r\n                }\r\n            }\r\n        },\r\n        \"debito\": 0.0,\r\n        \"telefone\": \"28 2222-3333\",\r\n        \"nascimento\": \"1980-10-10\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/clientes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"clientes"
+							]
+						},
+						"description": "Inserindo um cliente"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/clientes/1",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n        \"id\": 1,\r\n        \"nome\": \"Cliente 1 Alterado\",\r\n        \"cpf\": \"333.333.333-33\",\r\n        \"rua\": \"Rua x\",\r\n        \"numero\": 3,\r\n        \"bairro\": {\r\n            \"id\": 3,\r\n            \"nome\": \"Maria Ortiz\",\r\n            \"cidade\": {\r\n                \"id\": 2,\r\n                \"nome\": \"Cachoeiro de Itapemirim\",\r\n                \"uf\": {\r\n                    \"sigla\": \"ES\",\r\n                    \"nome\": \"Espírito Santo\"\r\n                }\r\n            }\r\n        },\r\n        \"debito\": 0.0,\r\n        \"telefone\": \"28 2222-3333\",\r\n        \"nascimento\": \"1980-10-10\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/clientes/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"clientes",
+								"1"
+							]
+						},
+						"description": "Alterando um cliente"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/clientes/2",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/clientes/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"clientes",
+								"2"
+							]
+						},
+						"description": "Deletando um cliente"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "devolucoes",
+			"item": [
+				{
+					"name": "http://localhost:8080/devolucoes/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/devolucoes/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"devolucoes",
+								""
+							]
+						},
+						"description": "Listando todas as devoluções"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/devolucoes/1/1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/devolucoes/1/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"devolucoes",
+								"1",
+								"1"
+							]
+						},
+						"description": "Selecionando uma devolução"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/devolucoes",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": \"2020-04-12\",\r\n    \"emprestimoId\": 2,\r\n    \"fitaId\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/devolucoes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"devolucoes"
+							]
+						},
+						"description": "Inserindo uma devolução"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/devolucoes",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": \"2020-12-30\",\r\n    \"emprestimoId\": 2,\r\n    \"fitaId\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/devolucoes/1/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"devolucoes",
+								"1",
+								"1"
+							]
+						},
+						"description": "Alterando uma devolução"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/devolucoes/1/1",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/devolucoes/1/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"devolucoes",
+								"1",
+								"1"
+							]
+						},
+						"description": "Deletando uma devolução"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/devolucoes/findByClienteAndPeriodo/1/2020-01-01/2020-12-31",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/devolucoes/findByClienteAndPeriodo/1/2020-01-01/2020-12-31",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"devolucoes",
+								"findByClienteAndPeriodo",
+								"1",
+								"2020-01-01",
+								"2020-12-31"
+							]
+						},
+						"description": "Buscar Devoluções por cliente em um determinado período de tempo"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/devolucoes/findQuantidadeDevolucaoClienteByPeriodo/2020-01-01/2020-12-31",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/devolucoes/findQuantidadeDevolucaoClienteByPeriodo/2020-01-01/2020-12-31",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"devolucoes",
+								"findQuantidadeDevolucaoClienteByPeriodo",
+								"2020-01-01",
+								"2020-12-31"
+							]
+						},
+						"description": "Relatório para retornar a quantidade de devoluções realizadas por todos os clientes entre um determinado período de tempo."
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f792fa37-7c0c-4ec1-8342-03bf4cc157ac",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "72f6bb94-6fbe-4561-ad31-24dd6c6bed8c",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "diretores",
+			"item": [
+				{
+					"name": "http://localhost:8080/diretores/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/diretores/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"diretores",
+								""
+							]
+						},
+						"description": "Listando todos os diretores"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/diretores/1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/diretores/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"diretores",
+								"1"
+							]
+						},
+						"description": "Listando um diretor"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/diretores",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 5,\r\n    \"nome\": \"Diretor Inserido\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/diretores",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"diretores"
+							]
+						},
+						"description": "Inserindo um diretor"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/diretores",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n    \"id\": 1,\r\n    \"nome\": \"Diretor Alterado\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/diretores/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"diretores",
+								"1"
+							]
+						},
+						"description": "Alterando um diretor"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/diretores/4",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/diretores/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"diretores",
+								"4"
+							]
+						},
+						"description": "Deletando um diretor"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "8dae71aa-a5a6-4fa3-b06f-6442d8105a2b",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "079644c8-652a-4d75-b7cc-6739ff59b79d",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "emprestimos",
+			"item": [
+				{
+					"name": "http://localhost:8080/emprestimos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/emprestimos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"emprestimos"
+							]
+						},
+						"description": "Listar Empréstimos"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/emprestimos/1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/emprestimos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"emprestimos",
+								"1"
+							]
+						},
+						"description": "Buscar Empréstimo"
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/emprestimos",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id\": 3,\r\n        \"data\": \"2020-04-13\",\r\n        \"valor\": 10.0,\r\n        \"cliente\": {\r\n            \"id\": 2,\r\n            \"nome\": \"Cliente José\",\r\n            \"cpf\": \"111.111.111-11\",\r\n            \"rua\": \"Rua José Figueiredo\",\r\n            \"numero\": 100,\r\n            \"bairro\": {\r\n                \"id\": 1,\r\n                \"nome\": \"Vila do Sul\",\r\n                \"cidade\": {\r\n                    \"id\": 1,\r\n                    \"nome\": \"Alegre\",\r\n                    \"uf\": {\r\n                        \"id\": 1,\r\n                        \"sigla\": \"ES\",\r\n                        \"nome\": \"Espírito Santo\"\r\n                    }\r\n                }\r\n            },\r\n            \"debito\": 0.0,\r\n            \"nascimento\": \"1981-01-01\",\r\n            \"telefones\": [\r\n                \"28 7777-8888\",\r\n                \"28 5555-6666\"\r\n            ]\r\n        },\r\n        \"itens\": [\r\n            {\r\n                \"valor\": 10.0,\r\n                \"entrega\": \"2020-04-16\",\r\n                \"fita\": {\r\n                    \"id\": 5,\r\n                    \"danificada\": false,\r\n                    \"disponivel\": false,\r\n                    \"filme\": {\r\n                        \"id\": 3,\r\n                        \"titulo\": \"Avatar\",\r\n                        \"genero\": \"Ficção Científica\",\r\n                        \"duracao\": \"3:00\",\r\n                        \"tipoDeFilme\": {\r\n                            \"id\": 3,\r\n                            \"nome\": \"Promoção C\",\r\n                            \"prazo\": 3,\r\n                            \"preco\": 15.0\r\n                        },\r\n                        \"diretores\": [\r\n                            {\r\n                                \"id\": 2,\r\n                                \"nome\": \"James Cameron\"\r\n                            },\r\n                            {\r\n                                \"id\": 3,\r\n                                \"nome\": \"Jon Landau\"\r\n                            }\r\n                        ],\r\n                        \"participacoes\": [\r\n                            {\r\n                                \"id\": 7,\r\n                                \"personagem\": \"Jake Sully\",\r\n                                \"artista\": {\r\n                                    \"id\": 6,\r\n                                    \"nome\": \"Sam Worthington\"\r\n                                }\r\n                            },\r\n                            {\r\n                                \"id\": 8,\r\n                                \"personagem\": \"Neytiri\",\r\n                                \"artista\": {\r\n                                    \"id\": 7,\r\n                                    \"nome\": \"Zoë Saldaña\"\r\n                                }\r\n                            }\r\n                        ]\r\n                    }\r\n                }\r\n            }\r\n        ]\r\n    }"
+						},
+						"url": {
+							"raw": "localhost:8080/emprestimos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"emprestimos"
+							]
+						},
+						"description": "Inserir Empréstimo\n\nInserção de um empréstimo possível.\nPara a fita 5."
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/emprestimos",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"id\": 2,\n        \"data\": 1523358000000,\n        \"valor\": 15,\n        \"pago\": true,\n        \"cliente\": {\n            \"@type\": \"Cliente\",\n            \"id\": 1,\n            \"nome\": \"Cliente João\",\n            \"cpf\": \"111.111.111-11\",\n            \"rua\": \"Rua Dr. Brício Mesquita\",\n            \"numero\": 100,\n            \"bairro\": {\n                \"id\": 3,\n                \"nome\": \"Maria Ortiz\",\n                \"cidade\": {\n                    \"id\": 2,\n                    \"nome\": \"Cachoeiro de Itapemirim\",\n                    \"uf\": {\n                        \"sigla\": \"ES\",\n                        \"nome\": \"Espírito Santo\"\n                    }\n                }\n            },\n            \"debito\": 0,\n            \"telefone\": \"28 1111-2222\",\n            \"nascimento\": 1523062800000\n        },\n        \"itens\": [\n            {\n                \"valor\": 5,\n                \"entrega\": 1523444400000,\n                \"fita\": {\n                    \"id\": 1,\n                    \"danificada\": false,\n                    \"disponivel\": true,\n                    \"filme\": {\n                        \"id\": 1,\n                        \"titulo\": \"Duplo Impacto\",\n                        \"genero\": \"Ação\",\n                        \"duracao\": \"2:00\",\n                        \"tipoDeFilme\": {\n                            \"id\": 1,\n                            \"nome\": \"Promoção A\",\n                            \"prazo\": 1,\n                            \"preco\": 5\n                        },\n                        \"participacoes\": [\n                            {\n                                \"id\": 1,\n                                \"personagem\": \"Alex\",\n                                \"artista\": {\n                                    \"id\": 1,\n                                    \"nome\": \"Jean Claude Van Damme\"\n                                }\n                            },\n                            {\n                                \"id\": 2,\n                                \"personagem\": \"Chad\",\n                                \"artista\": {\n                                    \"id\": 1,\n                                    \"nome\": \"Jean Claude Van Damme\"\n                                }\n                            },\n                            {\n                                \"id\": 3,\n                                \"personagem\": \"Frank\",\n                                \"artista\": {\n                                    \"id\": 2,\n                                    \"nome\": \"Geoffrey Lewis\"\n                                }\n                            },\n                            {\n                                \"id\": 4,\n                                \"personagem\": \"Moon\",\n                                \"artista\": {\n                                    \"id\": 3,\n                                    \"nome\": \"Bolo Yeung\"\n                                }\n                            }\n                        ]\n                    }\n                }\n            },\n            {\n                \"valor\": 10,\n                \"entrega\": 1523530800000,\n                \"fita\": {\n                    \"id\": 2,\n                    \"danificada\": false,\n                    \"disponivel\": true,\n                    \"filme\": {\n                        \"id\": 2,\n                        \"titulo\": \"Titanic\",\n                        \"genero\": \"Romance\",\n                        \"duracao\": \"2:30\",\n                        \"tipoDeFilme\": {\n                            \"id\": 2,\n                            \"nome\": \"Promoção B\",\n                            \"prazo\": 2,\n                            \"preco\": 10\n                        },\n                        \"participacoes\": [\n                            {\n                                \"id\": 5,\n                                \"personagem\": \"Jack\",\n                                \"artista\": {\n                                    \"id\": 4,\n                                    \"nome\": \"Leonardo DiCaprio\"\n                                }\n                            },\n                            {\n                                \"id\": 6,\n                                \"personagem\": \"Rose\",\n                                \"artista\": {\n                                    \"id\": 5,\n                                    \"nome\": \"Kate Winslet\"\n                                }\n                            }\n                        ]\n                    }\n                }\n            }\n        ]\n    }"
+						},
+						"url": {
+							"raw": "localhost:8080/emprestimos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"emprestimos"
+							]
+						},
+						"description": "Inserir Empréstimo\n\nInserção de um empréstimo para um cliente com multas anteriores\nNão deve ser possível inserir o empréstimo."
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/emprestimos",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"id\": 2,\n        \"data\": 1523358000000,\n        \"valor\": 15,\n        \"pago\": true,\n        \"cliente\": {\n            \"@type\": \"Cliente\",\n            \"id\": 2,\n            \"nome\": \"Cliente João\",\n            \"cpf\": \"111.111.111-11\",\n            \"rua\": \"Rua Dr. Brício Mesquita\",\n            \"numero\": 100,\n            \"bairro\": {\n                \"id\": 3,\n                \"nome\": \"Maria Ortiz\",\n                \"cidade\": {\n                    \"id\": 2,\n                    \"nome\": \"Cachoeiro de Itapemirim\",\n                    \"uf\": {\n                        \"sigla\": \"ES\",\n                        \"nome\": \"Espírito Santo\"\n                    }\n                }\n            },\n            \"debito\": 0,\n            \"telefone\": \"28 1111-2222\",\n            \"nascimento\": 1523062800000\n        },\n        \"itens\": [\n            {\n                \"valor\": 5,\n                \"entrega\": 1523444400000,\n                \"fita\": {\n                    \"id\": 3,\n                    \"danificada\": false,\n                    \"disponivel\": true,\n                    \"filme\": {\n                        \"id\": 1,\n                        \"titulo\": \"Duplo Impacto\",\n                        \"genero\": \"Ação\",\n                        \"duracao\": \"2:00\",\n                        \"tipoDeFilme\": {\n                            \"id\": 1,\n                            \"nome\": \"Promoção A\",\n                            \"prazo\": 1,\n                            \"preco\": 5\n                        },\n                        \"participacoes\": [\n                            {\n                                \"id\": 1,\n                                \"personagem\": \"Alex\",\n                                \"artista\": {\n                                    \"id\": 1,\n                                    \"nome\": \"Jean Claude Van Damme\"\n                                }\n                            },\n                            {\n                                \"id\": 2,\n                                \"personagem\": \"Chad\",\n                                \"artista\": {\n                                    \"id\": 1,\n                                    \"nome\": \"Jean Claude Van Damme\"\n                                }\n                            },\n                            {\n                                \"id\": 3,\n                                \"personagem\": \"Frank\",\n                                \"artista\": {\n                                    \"id\": 2,\n                                    \"nome\": \"Geoffrey Lewis\"\n                                }\n                            },\n                            {\n                                \"id\": 4,\n                                \"personagem\": \"Moon\",\n                                \"artista\": {\n                                    \"id\": 3,\n                                    \"nome\": \"Bolo Yeung\"\n                                }\n                            }\n                        ]\n                    }\n                }\n            },\n            {\n                \"valor\": 10,\n                \"entrega\": 1523530800000,\n                \"fita\": {\n                    \"id\": 4,\n                    \"danificada\": false,\n                    \"disponivel\": true,\n                    \"filme\": {\n                        \"id\": 2,\n                        \"titulo\": \"Titanic\",\n                        \"genero\": \"Romance\",\n                        \"duracao\": \"2:30\",\n                        \"tipoDeFilme\": {\n                            \"id\": 2,\n                            \"nome\": \"Promoção B\",\n                            \"prazo\": 2,\n                            \"preco\": 10\n                        },\n                        \"participacoes\": [\n                            {\n                                \"id\": 5,\n                                \"personagem\": \"Jack\",\n                                \"artista\": {\n                                    \"id\": 4,\n                                    \"nome\": \"Leonardo DiCaprio\"\n                                }\n                            },\n                            {\n                                \"id\": 6,\n                                \"personagem\": \"Rose\",\n                                \"artista\": {\n                                    \"id\": 5,\n                                    \"nome\": \"Kate Winslet\"\n                                }\n                            }\n                        ]\n                    }\n                }\n            }\n        ]\n    }"
+						},
+						"url": {
+							"raw": "localhost:8080/emprestimos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"emprestimos"
+							]
+						},
+						"description": "Inserir Empréstimo\n\nInserção de um empréstimo não possível, pois existe a fita 3 está indisponível."
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/emprestimos/2",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/emprestimos/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"emprestimos",
+								"2"
+							]
+						},
+						"description": "Deletar Empréstimo\n\nRemoção de um empréstimo que possui itens associados a devoluções. Portanto, não será possível."
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/emprestimos/findByCliente/1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/emprestimos/findByCliente/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"emprestimos",
+								"findByCliente",
+								"1"
+							]
+						},
+						"description": "Buscar Empréstimo"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/emprestimos/findByClienteAndPeriodo/1/2020-01-01/2020-12-31",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/emprestimos/findByClienteAndPeriodo/1/2020-01-01/2020-12-31",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"emprestimos",
+								"findByClienteAndPeriodo",
+								"1",
+								"2020-01-01",
+								"2020-12-31"
+							]
+						},
+						"description": "Buscar Empréstimos por clientes em um determinado período"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/emprestimos/findTotaisAndQuantidadesEmprestimosOfClientesByPeriodo/2020-01-01/2020-12-31",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/emprestimos/findTotaisAndQuantidadesEmprestimosOfClientesByPeriodo/2020-01-01/2020-12-31",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"emprestimos",
+								"findTotaisAndQuantidadesEmprestimosOfClientesByPeriodo",
+								"2020-01-01",
+								"2020-12-31"
+							]
+						},
+						"description": "Relatório para retornar o valor total de empréstimos realizados por um determinado cliente entre um determinado período de tempo."
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/emprestimos/findQuantidadesEmprestimosOfBairrosByPeriodo/2020-01-01/2020-12-31",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/emprestimos/findQuantidadesEmprestimosOfBairrosByPeriodo/2020-01-01/2020-12-31",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"emprestimos",
+								"findQuantidadesEmprestimosOfBairrosByPeriodo",
+								"2020-01-01",
+								"2020-12-31"
+							]
+						},
+						"description": "Relatório para retornar as quantidades de empréstimos realizados por bairros"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/emprestimos/findQuantidadesEmprestimosOfFilmesByPeriodo/2020-01-01/2020-12-31",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/emprestimos/findQuantidadesEmprestimosOfFilmesByPeriodo/2020-01-01/2020-12-31",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"emprestimos",
+								"findQuantidadesEmprestimosOfFilmesByPeriodo",
+								"2020-01-01",
+								"2020-12-31"
+							]
+						},
+						"description": "Relatório para retornar as quantidades de empréstimos realizados por filmes em um determinado período."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "filmes",
+			"item": [
+				{
+					"name": "http://localhost:8080/filmes/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/filmes/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"filmes",
+								""
+							]
+						},
+						"description": "Listando todos os filmes"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/filmes/1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/filmes/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"filmes",
+								"4"
+							]
+						},
+						"description": "Listando um filme"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/filmes",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": null,\r\n    \"titulo\": \"Filme Inserido\",\r\n    \"genero\": \"Drama\",\r\n    \"duracao\": \"03:00\",\r\n    \"imagem\": \"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\",\r\n    \"tipoDeFilme\": {\r\n        \"id\": 2,\r\n        \"nome\": \"Promoção B\",\r\n        \"prazo\": 2,\r\n        \"preco\": 10.0\r\n    },\r\n    \"diretores\": [\r\n            {\r\n                \"id\": 1,\r\n                \"nome\": \"Sheldon Lettich\"\r\n            }\r\n        ],\r\n    \"participacoes\": [\r\n            {\r\n                \"id\": null,\r\n                \"personagem\": \"Alex\",\r\n                \"artista\": {\r\n                    \"id\": 1,\r\n                    \"nome\": \"Jean Claude Van Damme\",\r\n                    \"imagem\": \"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\"\r\n                }\r\n            }\r\n        ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/filmes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"filmes"
+							]
+						},
+						"description": "Inserindo um filme\nEsta inserção envia um objeto Filme com atributo imagem preenchido com String na Base64"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/filmes/insertfile",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "multipart/form-data"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "filmeImagem",
+									"type": "file",
+									"src": "/C:/ws/scv-imagens/scv-backend-spring/src/main/resources/static/images/filme1.png"
+								},
+								{
+									"key": "filme",
+									"value": "{\n    \"titulo\": \"Filme Inserido\",\n    \"genero\": \"Drama\",\n    \"duracao\": \"03:00\",\n    \"tipoDeFilme\": {\n        \"id\": 2,\n        \"nome\": \"Promoção B\",\n        \"prazo\": 2,\n        \"preco\": 10.0\n    }\n}",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/filmes/insertfile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"filmes",
+								"insertfile"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						},
+						"description": "Inserindo um filme\nEsta inserção envia dois parâmetros no Request (form-data):\nfilme: como uma String no formato JSO\nfilmeImagem: como File"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/filmes/1",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"titulo\": \"Filme Alterado\",\r\n    \"genero\": \"Drama\",\r\n    \"duracao\": \"03:00\",\r\n    \"imagem\": \"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\",\r\n    \"tipoDeFilme\": {\r\n        \"id\": 2,\r\n        \"nome\": \"Promoção B\",\r\n        \"prazo\": 2,\r\n        \"preco\": 10.0\r\n    },\r\n    \"diretores\": [\r\n            {\r\n                \"id\": 1,\r\n                \"nome\": \"Sheldon Lettich\"\r\n            }\r\n        ],\r\n    \"participacoes\": [\r\n            {\r\n                \"id\": null,\r\n                \"personagem\": \"Alex\",\r\n                \"artista\": {\r\n                    \"id\": 1,\r\n                    \"nome\": \"Jean Claude Van Damme\",\r\n                    \"imagem\": \"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\"\r\n                }\r\n            }\r\n        ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/filmes/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"filmes",
+								"1"
+							]
+						},
+						"description": "Alterando um filme\nEsta alteração envia um objeto Filme com atributo imagem preenchido com String na Base64"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/filmes/updatefile/1",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "multipart/form-data"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "filmeImagem",
+									"type": "file",
+									"src": "/C:/ws/scv-imagens/scv-backend-spring/src/main/resources/static/images/filme1.png"
+								},
+								{
+									"key": "filme",
+									"value": "{\n    \"id\": 1,\n    \"titulo\": \"Filme Alterado\",\n    \"genero\": \"Drama\",\n    \"duracao\": \"03:00\",\n    \"tipoDeFilme\": {\n        \"id\": 2,\n        \"nome\": \"Promoção B\",\n        \"prazo\": 2,\n        \"preco\": 10.0\n    }\n}",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/filmes/updatefile/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"filmes",
+								"updatefile",
+								"1"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						},
+						"description": "Alterando um filme\nEsta alteração envia dois parâmetros no Request (form-data):\nfilme: como uma String no formato JSO\nfilmeImagem: como File"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/filmes/4",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/filmes/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"filmes",
+								"4"
+							]
+						},
+						"description": "Deletando um filme"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/filmes/findByTipoDeFilme/1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/filmes/findByTipoDeFilme/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"filmes",
+								"findByTipoDeFilme",
+								"2"
+							]
+						},
+						"description": "Buscar Empréstimo"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "8dae71aa-a5a6-4fa3-b06f-6442d8105a2b",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "079644c8-652a-4d75-b7cc-6739ff59b79d",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "fitas",
+			"item": [
+				{
+					"name": "http://localhost:8080/fitas/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/fitas/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"fitas",
+								""
+							]
+						},
+						"description": "Listando todas as fitas"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/fitas/1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/fitas/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"fitas",
+								"1"
+							]
+						},
+						"description": "Listando uma Fita"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/fitas",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id\": 5,\r\n        \"danificada\": false,\r\n        \"disponivel\": true,\r\n        \"filme\": {\r\n            \"id\": 3,\r\n            \"titulo\": \"Avatar\",\r\n            \"genero\": \"Ficção Científica\",\r\n            \"duracao\": \"3:00\",\r\n            \"tipoDeFilme\": {\r\n                \"id\": 2,\r\n                \"nome\": \"Promoção B\",\r\n                \"prazo\": 2,\r\n                \"preco\": 10.0\r\n            },\r\n            \"diretores\": [\r\n                {\r\n                    \"id\": 2,\r\n                    \"nome\": \"James Cameron\"\r\n                },\r\n                {\r\n                    \"id\": 3,\r\n                    \"nome\": \"Jon Landau\"\r\n                }\r\n            ],\r\n            \"participacoes\": [\r\n                {\r\n                    \"id\": 7,\r\n                    \"personagem\": \"Jake Sully\",\r\n                    \"artista\": {\r\n                        \"id\": 6,\r\n                        \"nome\": \"Sam Worthington\"\r\n                    }\r\n                },\r\n                {\r\n                    \"id\": 8,\r\n                    \"personagem\": \"Neytiri\",\r\n                    \"artista\": {\r\n                        \"id\": 7,\r\n                        \"nome\": \"Zoë Saldaña\"\r\n                    }\r\n                }\r\n            ]\r\n        }\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/fitas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"fitas"
+							]
+						},
+						"description": "Inserindo um filme"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/fitas/4",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\t{\r\n        \"id\": 4,\r\n        \"danificada\": true,\r\n        \"disponivel\": true,\r\n        \"filme\": {\r\n            \"id\": 3,\r\n            \"titulo\": \"Avatar\",\r\n            \"genero\": \"Ficção Científica\",\r\n            \"duracao\": \"3:00\",\r\n            \"tipoDeFilme\": {\r\n                \"id\": 2,\r\n                \"nome\": \"Promoção B\",\r\n                \"prazo\": 2,\r\n                \"preco\": 10.0\r\n            },\r\n            \"diretores\": [\r\n                {\r\n                    \"id\": 2,\r\n                    \"nome\": \"James Cameron\"\r\n                },\r\n                {\r\n                    \"id\": 3,\r\n                    \"nome\": \"Jon Landau\"\r\n                }\r\n            ],\r\n            \"participacoes\": [\r\n                {\r\n                    \"id\": 7,\r\n                    \"personagem\": \"Jake Sully\",\r\n                    \"artista\": {\r\n                        \"id\": 6,\r\n                        \"nome\": \"Sam Worthington\"\r\n                    }\r\n                },\r\n                {\r\n                    \"id\": 8,\r\n                    \"personagem\": \"Neytiri\",\r\n                    \"artista\": {\r\n                        \"id\": 7,\r\n                        \"nome\": \"Zoë Saldaña\"\r\n                    }\r\n                }\r\n            ]\r\n        }\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/fitas/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"fitas",
+								"4"
+							]
+						},
+						"description": "Alterando um filme"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/fitas/4",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/fitas/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"fitas",
+								"4"
+							]
+						},
+						"description": "Deletando uma fita"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/fitas/findByDanificadaAndDisponivel",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/fitas/findByDanificadaAndDisponivel/false/true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"fitas",
+								"findByDanificadaAndDisponivel",
+								"false",
+								"true"
+							]
+						},
+						"description": "Listando todas as fitas"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/fitas/findbyfilme/1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/fitas/findByFilme/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"fitas",
+								"findByFilme",
+								"3"
+							]
+						},
+						"description": "Buscar Empréstimo"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "8dae71aa-a5a6-4fa3-b06f-6442d8105a2b",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "079644c8-652a-4d75-b7cc-6739ff59b79d",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "funcionarios",
+			"item": [
+				{
+					"name": "http://localhost:8080/funcionarios/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/funcionarios/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"funcionarios",
+								""
+							]
+						},
+						"description": "Listando todos clientes"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/funcionarios/1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/funcionarios/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"funcionarios",
+								"1"
+							]
+						},
+						"description": "Selecionando um cliente"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/funcionarios",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"id\": 3,\r\n        \"nome\": \"Funcionário Inserido\",\r\n        \"cpf\": \"222.222.222-22\",\r\n        \"rua\": \"Rua Dr. Brício Mesquita\",\r\n        \"numero\": 101,\r\n        \"bairro\": {\r\n            \"id\": 3,\r\n            \"nome\": \"Maria Ortiz\",\r\n            \"cidade\": {\r\n                \"id\": 2,\r\n                \"nome\": \"Cachoeiro de Itapemirim\",\r\n                \"uf\": {\r\n                    \"sigla\": \"ES\",\r\n                    \"nome\": \"Espírito Santo\"\r\n                }\r\n            }\r\n        },\r\n        \"login\": \"funcionario3\",\r\n        \"senha\": \"123456\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/funcionarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"funcionarios"
+							]
+						},
+						"description": "Inserindo um cliente"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/funcionarios/1",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"id\": 1,\r\n        \"nome\": \"Funcionário Alterado\",\r\n        \"cpf\": \"222.222.222-22\",\r\n        \"rua\": \"Rua Dr. Brício Mesquita\",\r\n        \"numero\": 101,\r\n        \"bairro\": {\r\n            \"id\": 3,\r\n            \"nome\": \"Maria Ortiz\",\r\n            \"cidade\": {\r\n                \"id\": 2,\r\n                \"nome\": \"Cachoeiro de Itapemirim\",\r\n                \"uf\": {\r\n                    \"sigla\": \"ES\",\r\n                    \"nome\": \"Espírito Santo\"\r\n                }\r\n            }\r\n        },\r\n        \"login\": \"funcionario1\",\r\n        \"senha\": \"123456\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/funcionarios/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"funcionarios",
+								"1"
+							]
+						},
+						"description": "Alterando um cliente"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/funcionarios/2",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/funcionarios/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"funcionarios",
+								"2"
+							]
+						},
+						"description": "Deletando um cliente"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "201da8a4-12b8-4316-bf0f-d8311c05a3d6",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "29001413-854e-4e3f-9d9a-7df5805da03e",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "gerentes",
+			"item": [
+				{
+					"name": "http://localhost:8080/gerentes/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/gerentes/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"gerentes",
+								""
+							]
+						},
+						"description": "Listando todos clientes"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/gerentes/1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/gerentes/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"gerentes",
+								"1"
+							]
+						},
+						"description": "Selecionando um cliente"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/gerentes",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"id\": 3,\r\n        \"nome\": \"Gerente Inserido\",\r\n        \"cpf\": \"333.333.333-33\",\r\n        \"rua\": \"Rua Dr. Brício Mesquita\",\r\n        \"numero\": 102,\r\n        \"bairro\": {\r\n            \"id\": 3,\r\n            \"nome\": \"Maria Ortiz\",\r\n            \"cidade\": {\r\n                \"id\": 2,\r\n                \"nome\": \"Cachoeiro de Itapemirim\",\r\n                \"uf\": {\r\n                    \"sigla\": \"ES\",\r\n                    \"nome\": \"Espírito Santo\"\r\n                }\r\n            }\r\n        },\r\n        \"login\": \"gerente3\",\r\n        \"senha\": \"123456\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/gerentes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"gerentes"
+							]
+						},
+						"description": "Inserindo um cliente"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/gerentes/1",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"id\": 1,\r\n        \"nome\": \"Gerente Alterado\",\r\n        \"cpf\": \"333.333.333-33\",\r\n        \"rua\": \"Rua Dr. Brício Mesquita\",\r\n        \"numero\": 102,\r\n        \"bairro\": {\r\n            \"id\": 3,\r\n            \"nome\": \"Maria Ortiz\",\r\n            \"cidade\": {\r\n                \"id\": 2,\r\n                \"nome\": \"Cachoeiro de Itapemirim\",\r\n                \"uf\": {\r\n                    \"sigla\": \"ES\",\r\n                    \"nome\": \"Espírito Santo\"\r\n                }\r\n            }\r\n        },\r\n        \"login\": \"gerente3\",\r\n        \"senha\": \"123456\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/gerentes/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"gerentes",
+								"1"
+							]
+						},
+						"description": "Alterando um cliente"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/gerentes/2",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/gerentes/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"gerentes",
+								"2"
+							]
+						},
+						"description": "Deletando um cliente"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "201da8a4-12b8-4316-bf0f-d8311c05a3d6",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "29001413-854e-4e3f-9d9a-7df5805da03e",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "multas",
+			"item": [
+				{
+					"name": "http://localhost:8080/multas/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/multas/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"multas",
+								""
+							]
+						},
+						"description": "Listando todas as multas"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/multas/1/1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/devolucoes/1/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"devolucoes",
+								"1",
+								"1"
+							]
+						},
+						"description": "Selecionando uma multa"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/multas",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"valor\": 10.0,\r\n    \"pago\": true,\r\n    \"emprestimoId\": 1,\r\n    \"fitaId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/multas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"multas"
+							]
+						},
+						"description": "Inserindo uma devolução"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/multas",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"valor\": 20.0,\r\n    \"pago\": true,\r\n    \"emprestimoId\": 1,\r\n    \"fitaId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/multas/1/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"multas",
+								"1",
+								"1"
+							]
+						},
+						"description": "Alterando uma devolução"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/multas/1/1",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/multas/1/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"multas",
+								"1",
+								"1"
+							]
+						},
+						"description": "Deletando uma devolução"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f792fa37-7c0c-4ec1-8342-03bf4cc157ac",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "72f6bb94-6fbe-4561-ad31-24dd6c6bed8c",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "reservas",
+			"item": [
+				{
+					"name": "http://localhost:8080/reservas/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/reservas/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reservas",
+								""
+							]
+						},
+						"description": "Listando todos clientes"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/reservas/1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/reservas/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reservas",
+								"1"
+							]
+						},
+						"description": "Selecionando um cliente"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/reservas",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id\": null,\r\n        \"data\": \"2020-04-13\",\r\n        \"status\": 0,\r\n        \"cliente\": {\r\n            \"id\": 2,\r\n            \"nome\": \"Cliente José\",\r\n            \"cpf\": \"111.111.111-11\",\r\n            \"rua\": \"Rua Dr. Brício Mesquita\",\r\n            \"numero\": 100,\r\n            \"bairro\": {\r\n                \"id\": 3,\r\n                \"nome\": \"Maria Ortiz\",\r\n                \"cidade\": {\r\n                    \"id\": 2,\r\n                    \"nome\": \"Cachoeiro de Itapemirim\",\r\n                    \"uf\": {\r\n                        \"sigla\": \"ES\",\r\n                        \"nome\": \"Espírito Santo\"\r\n                    }\r\n                }\r\n            },\r\n            \"debito\": 5.0,\r\n            \"telefone\": \"28 1111-2222\",\r\n            \"nascimento\": \"1980-01-01\"\r\n        },\r\n        \"fita\": {\r\n        \"id\": 3,\r\n        \"danificada\": false,\r\n        \"disponivel\": true,\r\n        \"filme\": {\r\n            \"id\": 3,\r\n            \"titulo\": \"Avatar\",\r\n            \"genero\": \"Ficção Científica\",\r\n            \"duracao\": \"3:00\",\r\n            \"tipoDeFilme\": {\r\n                \"id\": 2,\r\n                \"nome\": \"Promoção B\",\r\n                \"prazo\": 2,\r\n                \"preco\": 10.0\r\n            },\r\n            \"diretores\": [\r\n                {\r\n                    \"id\": 2,\r\n                    \"nome\": \"James Cameron\"\r\n                },\r\n                {\r\n                    \"id\": 3,\r\n                    \"nome\": \"Jon Landau\"\r\n                }\r\n            ],\r\n            \"participacoes\": [\r\n                {\r\n                    \"id\": 7,\r\n                    \"personagem\": \"Jake Sully\",\r\n                    \"artista\": {\r\n                        \"id\": 6,\r\n                        \"nome\": \"Sam Worthington\"\r\n                    }\r\n                },\r\n                {\r\n                    \"id\": 8,\r\n                    \"personagem\": \"Neytiri\",\r\n                    \"artista\": {\r\n                        \"id\": 7,\r\n                        \"nome\": \"Zoë Saldaña\"\r\n                    }\r\n                }\r\n            ]\r\n        }\r\n    }\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/reservas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reservas"
+							]
+						},
+						"description": "Inserindo um cliente"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/reservas",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id\": null,\r\n        \"data\": \"2020-04-13\",\r\n        \"status\": 0,\r\n        \"cliente\": {\r\n            \"id\": 1,\r\n            \"nome\": \"Cliente João\",\r\n            \"cpf\": \"111.111.111-11\",\r\n            \"rua\": \"Rua Dr. Brício Mesquita\",\r\n            \"numero\": 100,\r\n            \"bairro\": {\r\n                \"id\": 3,\r\n                \"nome\": \"Maria Ortiz\",\r\n                \"cidade\": {\r\n                    \"id\": 2,\r\n                    \"nome\": \"Cachoeiro de Itapemirim\",\r\n                    \"uf\": {\r\n                        \"sigla\": \"ES\",\r\n                        \"nome\": \"Espírito Santo\"\r\n                    }\r\n                }\r\n            },\r\n            \"debito\": 5.0,\r\n            \"telefone\": \"28 1111-2222\",\r\n            \"nascimento\": \"1980-01-01\"\r\n        },\r\n        \"fita\": {\r\n        \"id\": 3,\r\n        \"danificada\": false,\r\n        \"disponivel\": true,\r\n        \"filme\": {\r\n            \"id\": 3,\r\n            \"titulo\": \"Avatar\",\r\n            \"genero\": \"Ficção Científica\",\r\n            \"duracao\": \"3:00\",\r\n            \"tipoDeFilme\": {\r\n                \"id\": 2,\r\n                \"nome\": \"Promoção B\",\r\n                \"prazo\": 2,\r\n                \"preco\": 10.0\r\n            },\r\n            \"diretores\": [\r\n                {\r\n                    \"id\": 2,\r\n                    \"nome\": \"James Cameron\"\r\n                },\r\n                {\r\n                    \"id\": 3,\r\n                    \"nome\": \"Jon Landau\"\r\n                }\r\n            ],\r\n            \"participacoes\": [\r\n                {\r\n                    \"id\": 7,\r\n                    \"personagem\": \"Jake Sully\",\r\n                    \"artista\": {\r\n                        \"id\": 6,\r\n                        \"nome\": \"Sam Worthington\"\r\n                    }\r\n                },\r\n                {\r\n                    \"id\": 8,\r\n                    \"personagem\": \"Neytiri\",\r\n                    \"artista\": {\r\n                        \"id\": 7,\r\n                        \"nome\": \"Zoë Saldaña\"\r\n                    }\r\n                }\r\n            ]\r\n        }\r\n    }\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/reservas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reservas"
+							]
+						},
+						"description": "Inserindo um cliente\nProblema na inserção: cliente com multas não pagas."
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/reservas/1",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"data\": \"2020-12-31\",\r\n    \"status\": 0,\r\n    \"cliente\": {\r\n        \"id\": 1,\r\n        \"nome\": \"Cliente João\",\r\n        \"cpf\": \"111.111.111-11\",\r\n        \"rua\": \"Rua Dr. Brício Mesquita\",\r\n        \"numero\": 100,\r\n        \"bairro\": {\r\n            \"id\": 3,\r\n            \"nome\": \"Maria Ortiz\",\r\n            \"cidade\": {\r\n                \"id\": 2,\r\n                \"nome\": \"Cachoeiro de Itapemirim\",\r\n                \"uf\": {\r\n                    \"sigla\": \"ES\",\r\n                    \"nome\": \"Espírito Santo\"\r\n                }\r\n            }\r\n        },\r\n        \"debito\": 5.0,\r\n        \"telefone\": \"28 1111-2222\",\r\n        \"nascimento\": \"1980-01-01\"\r\n    },\r\n    \"fita\": {\r\n        \"id\": 1,\r\n        \"danificada\": false,\r\n        \"disponivel\": false,\r\n        \"filme\": {\r\n            \"id\": 1,\r\n            \"titulo\": \"Duplo Impacto\",\r\n            \"genero\": \"Ação\",\r\n            \"duracao\": \"2:00\",\r\n            \"tipoDeFilme\": {\r\n                \"id\": 1,\r\n                \"nome\": \"Promoção A\",\r\n                \"prazo\": 1,\r\n                \"preco\": 5.0\r\n            },\r\n            \"diretores\": [\r\n                {\r\n                    \"id\": 1,\r\n                    \"nome\": \"Sheldon Lettich\"\r\n                }\r\n            ],\r\n            \"participacoes\": [\r\n                {\r\n                    \"id\": 1,\r\n                    \"personagem\": \"Alex\",\r\n                    \"artista\": {\r\n                        \"id\": 1,\r\n                        \"nome\": \"Jean Claude Van Damme\"\r\n                    }\r\n                },\r\n                {\r\n                    \"id\": 2,\r\n                    \"personagem\": \"Chad\",\r\n                    \"artista\": {\r\n                        \"id\": 1,\r\n                        \"nome\": \"Jean Claude Van Damme\"\r\n                    }\r\n                },\r\n                {\r\n                    \"id\": 3,\r\n                    \"personagem\": \"Frank\",\r\n                    \"artista\": {\r\n                        \"id\": 2,\r\n                        \"nome\": \"Geoffrey Lewis\"\r\n                    }\r\n                },\r\n                {\r\n                    \"id\": 4,\r\n                    \"personagem\": \"Moon\",\r\n                    \"artista\": {\r\n                        \"id\": 3,\r\n                        \"nome\": \"Bolo Yeung\"\r\n                    }\r\n                }\r\n            ]\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/reservas/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reservas",
+								"1"
+							]
+						},
+						"description": "Alterando um cliente"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/reservas/1",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/reservas/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reservas",
+								"1"
+							]
+						},
+						"description": "Deletando um cliente"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/reservas/findByClienteAndPeriodo/1/2020-01-01/2020-12-31",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/reservas/findByClienteAndPeriodo/1/2020-01-01/2020-12-31",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reservas",
+								"findByClienteAndPeriodo",
+								"1",
+								"2020-01-01",
+								"2020-12-31"
+							]
+						},
+						"description": "Buscar Reservas por clientes em um determinado período"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/reservas/findQuantidadesReservasOfClientesByPeriodo/2020-01-01/2020-12-31",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/reservas/findQuantidadesReservasOfClientesByPeriodo/2020-01-01/2020-12-31",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reservas",
+								"findQuantidadesReservasOfClientesByPeriodo",
+								"2020-01-01",
+								"2020-12-31"
+							]
+						},
+						"description": "Relatório para retornar a quantidade de reservas realizadas por todos os clientes entre um determinado período de tempo."
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "201da8a4-12b8-4316-bf0f-d8311c05a3d6",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "29001413-854e-4e3f-9d9a-7df5805da03e",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "tiposdefilmes",
+			"item": [
+				{
+					"name": "http://localhost:8080/tiposdefilme/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/tiposdefilme/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"tiposdefilme",
+								""
+							]
+						},
+						"description": "Listando todos os filmes"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/tiposdefilme/1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/tiposdefilme/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"tiposdefilme",
+								"1"
+							]
+						},
+						"description": "Listando um filme"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/tiposdefilme",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"id\": 4,\r\n    \"nome\": \"Tipo de Filme Inserido\",\r\n    \"prazo\": 1,\r\n    \"preco\": 5.0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/tiposdefilme",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"tiposdefilme"
+							]
+						},
+						"description": "Inserindo um filme"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/tiposdefilme/1",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"id\": 1,\r\n\t\"nome\": \"Tipo de Filme Alterado\",\r\n\t\"prazo\": 1,\r\n\t\"preco\": 5.0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/tiposdefilme/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"tiposdefilme",
+								"1"
+							]
+						},
+						"description": "Alterando um filme"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/tiposdefilme/3",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/tiposdefilme/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"tiposdefilme",
+								"3"
+							]
+						},
+						"description": "Deletando um filme"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "8dae71aa-a5a6-4fa3-b06f-6442d8105a2b",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "079644c8-652a-4d75-b7cc-6739ff59b79d",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "ufs",
+			"item": [
+				{
+					"name": "http://localhost:8080/ufs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/ufs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ufs"
+							]
+						},
+						"description": "Listar Ufs"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/ufs/1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/ufs/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ufs",
+								"1"
+							]
+						},
+						"description": "Buscar ES"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/ufs",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 3,\n    \"sigla\": \"MT\",\n    \"nome\": \"Mato Grosso\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/ufs/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ufs",
+								""
+							]
+						},
+						"description": "Inserir Uf"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/ufs/1",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"sigla\": \"ES\",\n    \"nome\": \"Espírito Santo2\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/ufs/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ufs",
+								"1"
+							]
+						},
+						"description": "Atualizar Uf"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/ufs/3",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:8080/ufs/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ufs",
+								"3"
+							]
+						},
+						"description": "Deletar Ufs"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "6060dc75-7666-4809-a1c8-c8a607cf0e20",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "465f55e3-bced-426a-b1c8-56ca5ce1cc16",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
