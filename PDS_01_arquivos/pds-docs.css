@@ -1,0 +1,329 @@
+@charset "UTF-8";
+
+:root {
+  --pds-bg: #f5f7fb;
+  --pds-surface: #ffffff;
+  --pds-text: #0f172a;
+  --pds-muted: #64748b;
+  --pds-border: rgba(15, 23, 42, 0.12);
+  --pds-primary: #2563eb;
+  --pds-primary-weak: rgba(37, 99, 235, 0.12);
+  --pds-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  --pds-radius: 14px;
+}
+body.pds-doc {
+  margin: 0;
+  color: var(--pds-text);
+  background: radial-gradient(1200px 600px at 20% 0%, rgba(37, 99, 235, 0.12), transparent 60%),
+    radial-gradient(1000px 500px at 95% 10%, rgba(16, 185, 129, 0.10), transparent 55%),
+    var(--pds-bg);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body.pds-doc a {
+  color: var(--pds-primary);
+  text-decoration: none;
+}
+body.pds-doc a:hover {
+  text-decoration: underline;
+}
+body.pds-doc a:focus-visible {
+  outline: 3px solid var(--pds-primary-weak);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+body.pds-doc p,
+body.pds-doc li,
+body.pds-doc td,
+body.pds-doc th {
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+body.pds-doc .pds-shell {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 18px;
+  padding: 18px;
+}
+
+@media (max-width: 980px) {
+  body.pds-doc .pds-shell {
+    grid-template-columns: 1fr;
+  }
+}
+
+body.pds-doc:not(.pds-doc-enhanced) {
+  padding: 18px;
+}
+
+body.pds-doc:not(.pds-doc-enhanced) .WordSection1 {
+  max-width: 980px;
+  margin: 0 auto;
+  background: var(--pds-surface);
+  border: 1px solid var(--pds-border);
+  border-radius: var(--pds-radius);
+  box-shadow: var(--pds-shadow);
+  padding: 18px 18px 10px 18px;
+}
+
+body.pds-doc:not(.pds-doc-enhanced) .WordSection1 > div[align="center"] > table.MsoNormalTable[width="75%"] {
+  width: 100% !important;
+}
+
+body.pds-doc .pds-sidebar {
+  position: sticky;
+  top: 18px;
+  align-self: start;
+  max-height: calc(100vh - 36px);
+  overflow: auto;
+  background: var(--pds-surface);
+  border: 1px solid var(--pds-border);
+  border-radius: var(--pds-radius);
+  box-shadow: var(--pds-shadow);
+  padding: 14px;
+}
+
+@media (max-width: 980px) {
+  body.pds-doc .pds-sidebar {
+    position: static;
+    max-height: none;
+  }
+}
+
+body.pds-doc .pds-sidebarTitle {
+  display: block;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  color: var(--pds-muted);
+  text-transform: uppercase;
+  margin: 0 0 10px 0;
+}
+
+body.pds-doc .pds-toc {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+body.pds-doc .pds-toc a {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 12px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  color: var(--pds-text);
+  text-decoration: none;
+}
+
+body.pds-doc .pds-toc a:hover {
+  background: rgba(15, 23, 42, 0.04);
+  text-decoration: none;
+}
+
+body.pds-doc .pds-stepBadge {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 13px;
+  background: rgba(148, 163, 184, 0.35);
+  color: rgba(15, 23, 42, 0.75);
+  flex: 0 0 28px;
+}
+
+body.pds-doc .pds-stepText {
+  display: block;
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+body.pds-doc .pds-toc a.pds-active {
+  background: #5d7fa9;
+  border-color: rgba(93, 127, 169, 0.65);
+  color: #ffffff;
+}
+
+body.pds-doc .pds-toc a.pds-active .pds-stepBadge {
+  background: rgba(255, 255, 255, 0.28);
+  color: #ffffff;
+}
+
+body.pds-doc .pds-main {
+  min-width: 0;
+}
+
+body.pds-doc .pds-topbar {
+  background: var(--pds-surface);
+  border: 1px solid var(--pds-border);
+  border-radius: var(--pds-radius);
+  box-shadow: var(--pds-shadow);
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+body.pds-doc .pds-title {
+  font-size: 14px;
+  color: var(--pds-muted);
+  margin: 0;
+  line-height: 1.4;
+}
+
+body.pds-doc .pds-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  background: rgba(15, 23, 42, 0.03);
+  color: var(--pds-text);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+body.pds-doc .pds-back:hover {
+  background: rgba(15, 23, 42, 0.06);
+  text-decoration: none;
+}
+
+body.pds-doc .pds-content {
+  margin-top: 18px;
+  background: var(--pds-surface);
+  border: 1px solid var(--pds-border);
+  border-radius: var(--pds-radius);
+  box-shadow: var(--pds-shadow);
+  padding: 18px 18px 10px 18px;
+}
+
+body.pds-doc .WordSection1 {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+body.pds-doc .WordSection1 > div[align="center"] {
+  text-align: left;
+}
+
+body.pds-doc table {
+  max-width: 100%;
+}
+
+body.pds-doc table[width="75%"] {
+  width: 100% !important;
+}
+
+body.pds-doc table.MsoNormalTable {
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+}
+
+body.pds-doc table[border="1"],
+body.pds-doc table.pds-activityTable {
+  border-collapse: collapse !important;
+}
+
+body.pds-doc table[border="1"] {
+  border: 1px solid var(--pds-border) !important;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+  background: #ffffff;
+  width: 100% !important;
+}
+
+body.pds-doc table[border="1"] td,
+body.pds-doc table[border="1"] th {
+  border-color: var(--pds-border) !important;
+  padding: 10px 12px !important;
+  vertical-align: top !important;
+}
+
+body.pds-doc table[border="1"] td[style*="border:"],
+body.pds-doc table[border="1"] th[style*="border:"] {
+  border: 1px solid var(--pds-border) !important;
+  border-style: solid !important;
+  border-width: 1px !important;
+}
+
+body.pds-doc table[border="1"] td[style*="border:none"],
+body.pds-doc table[border="1"] td[style*="border: none"],
+body.pds-doc table[border="1"] td[style*="mso-cell-special:placeholder"],
+body.pds-doc table[border="1"] th[style*="border:none"],
+body.pds-doc table[border="1"] th[style*="border: none"],
+body.pds-doc table[border="1"] th[style*="mso-cell-special:placeholder"] {
+  border: none !important;
+  padding: 0 !important;
+}
+
+body.pds-doc table.pds-activityTable {
+  border: 1px solid var(--pds-border) !important;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+  background: #ffffff;
+  width: 100% !important;
+}
+
+body.pds-doc table.pds-activityTable td,
+body.pds-doc table.pds-activityTable th {
+  border-color: var(--pds-border) !important;
+  padding: 10px 12px !important;
+  vertical-align: top !important;
+}
+
+body.pds-doc table.pds-activityTable td[style*="border:"],
+body.pds-doc table.pds-activityTable th[style*="border:"] {
+  border: 1px solid var(--pds-border) !important;
+  border-style: solid !important;
+  border-width: 1px !important;
+}
+
+body.pds-doc table.pds-activityTable td[style*="border:none"],
+body.pds-doc table.pds-activityTable td[style*="border: none"],
+body.pds-doc table.pds-activityTable td[style*="mso-cell-special:placeholder"],
+body.pds-doc table.pds-activityTable th[style*="border:none"],
+body.pds-doc table.pds-activityTable th[style*="border: none"],
+body.pds-doc table.pds-activityTable th[style*="mso-cell-special:placeholder"] {
+  border: none !important;
+  padding: 0 !important;
+}
+
+body.pds-doc td[style*="background:#99CCFF"],
+body.pds-doc td[style*="background: #99CCFF"],
+body.pds-doc td[style*="background-color:#99CCFF"],
+body.pds-doc td[style*="background-color: #99CCFF"] {
+  background: linear-gradient(180deg, rgba(37, 99, 235, 0.20), rgba(37, 99, 235, 0.10)) !important;
+  border-color: rgba(37, 99, 235, 0.25) !important;
+}
+
+body.pds-doc td[style*="background:#99CCFF"] b,
+body.pds-doc td[style*="background: #99CCFF"] b,
+body.pds-doc td[style*="background-color:#99CCFF"] b,
+body.pds-doc td[style*="background-color: #99CCFF"] b {
+  color: #0b2a6f;
+}
+
+body.pds-doc hr {
+  border: none;
+  border-top: 1px solid var(--pds-border);
+  margin: 18px 0;
+}
+
+body.pds-doc img {
+  max-width: 100%;
+  height: auto;
+}
+
