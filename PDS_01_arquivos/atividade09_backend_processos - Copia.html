@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo de Apresentação - Etapa 2 — Modelo Conceitual (ER)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #cbd5e1;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .header-msg {
+            background-color: #1e293b;
+            color: #f8fafc;
+            width: 100%;
+            text-align: center;
+            padding: 0.6rem 1rem;
+            font-size: 1rem;
+            font-weight: 500;
+            flex-shrink: 0;
+        }
+
+        /* Container do slideshow */
+        .presentation-container {
+            width: 100%;
+            max-width: 1280px;
+            flex: 1;
+            position: relative;
+            margin: 1.5rem auto;
+            padding: 0 1rem;
+        }
+
+        /* Cada slide ocupa 100% e fica oculto por padrão */
+        .slide {
+            background-color: #ffffff;
+            width: 100%;
+            min-height: 560px;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            display: none;
+            flex-direction: column;
+            border: 1px solid #e2e8f0;
+            position: relative;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        /* Decoração Superior */
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, #0f6b5f 0%, #34d399 100%);
+            z-index: 10;
+            border-radius: 12px 12px 0 0;
+        }
+
+        /* Navegação */
+        .nav-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.2rem;
+            padding: 0.8rem 0;
+            flex-shrink: 0;
+        }
+
+        .nav-bar button {
+            background: #0f6b5f;
+            color: #fff;
+            border: none;
+            padding: 0.55rem 1.4rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .nav-bar button:hover {
+            background: #0a5249;
+        }
+
+        .nav-bar button:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+        }
+
+        .nav-bar .nav-indicator {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #334155;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        /* Controles de fonte */
+        .font-controls {
+            position: fixed;
+            top: 0.5rem;
+            right: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            z-index: 100;
+        }
+
+        .font-controls button {
+            background: #334155;
+            color: #f8fafc;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .font-controls button:hover {
+            background: #0f6b5f;
+        }
+
+        .font-controls span {
+            color: #f8fafc;
+            font-size: 0.8rem;
+            font-weight: 600;
+            min-width: 36px;
+            text-align: center;
+        }
+
+        /* Cabeçalho do Slide */
+        .slide-header {
+            padding: 1.5rem 3rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .title-group h1 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1e293b;
+            line-height: 1.2;
+        }
+
+        .title-group .subtitle {
+            margin: 0.4rem 0 0;
+            font-size: 1.1rem;
+            color: #64748b;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .slide-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #cbd5e1;
+        }
+
+        /* Corpo do Slide */
+        .slide-body {
+            padding: 1.2rem 3rem 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            overflow-y: auto;
+        }
+
+        /* Capa */
+        .slide-cover {
+            background: radial-gradient(circle at top right, #f8fafc 0%, #e2e8f0 100%);
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 3rem 3rem;
+        }
+
+        .slide-cover h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            color: #0f6b5f;
+            margin: 0 0 0.8rem 0;
+        }
+
+        .slide-cover p.domain {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #334155;
+            margin: 0 0 1.5rem 0;
+        }
+
+        /* Mini-mundo box */
+        .miniworld {
+            text-align: left;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.2rem 1.5rem;
+            margin-top: 1rem;
+            font-size: 0.92rem;
+            line-height: 1.7;
+            color: #334155;
+            max-width: 100%;
+            width: 100%;
+        }
+
+        .miniworld p {
+            margin: 0.5rem 0;
+        }
+
+        /* Layout Grid 2 Colunas */
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            height: 100%;
+        }
+
+        .col-left {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .col-right {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        /* Data box */
+        .data-box {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.2rem;
+        }
+
+        .data-box h3 {
+            margin: 0 0 0.8rem 0;
+            color: #0f6b5f;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .data-table th,
+        .data-table td {
+            text-align: left;
+            padding: 0.45rem 0.5rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .data-table th {
+            color: #64748b;
+            font-weight: 600;
+            font-size: 0.82rem;
+        }
+
+        .data-table td {
+            color: #334155;
+            font-weight: 500;
+        }
+
+        /* Imagem box */
+        .er-image-box {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .er-image-box h3 {
+            margin: 0 0 0.6rem 0;
+            color: #0f6b5f;
+            font-size: 1.05rem;
+        }
+
+        .er-image-box img {
+            max-width: 100%;
+            max-height: 300px;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* ER completo (slide 2) */
+        .er-full img {
+            max-width: 100%;
+            max-height: 440px;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* Crachá */
+        .student-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #f1f5f9;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            color: #475569;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid #cbd5e1;
+        }
+
+        .event-excerpt {
+            margin: 0.6rem 0 1rem;
+            padding: 0.7rem 0.9rem;
+            background: #ecfeff;
+            border: 1px solid #bae6fd;
+            border-left: 4px solid #0ea5e9;
+            border-radius: 8px;
+            color: #0f172a;
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+
+        .event-excerpt strong {
+            color: #0c4a6e;
+        }
+
+        /* Timeline */
+        .timeline-strip {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 0.65rem 3rem;
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .tl-steps {
+            display: flex;
+            align-items: flex-start;
+            width: 100%;
+            max-width: 680px;
+        }
+        .tl-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0;
+            width: 90px;
+        }
+        .tl-connector {
+            flex: 1;
+            height: 2px;
+            background: #e2e8f0;
+            margin-top: 11px;
+        }
+        .tl-connector.tl-past { background: #10b981; }
+        .tl-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #fff;
+            border: 2px solid #cbd5e1;
+            margin-bottom: 0.3rem;
+        }
+        .tl-label {
+            font-size: 0.72rem;
+            color: #94a3b8;
+            font-weight: 500;
+            text-align: center;
+            white-space: nowrap;
+        }
+        .tl-step.tl-past .tl-dot { background: #10b981; border-color: #10b981; }
+        .tl-step.tl-past .tl-label { color: #065f46; font-weight: 600; }
+        .tl-step.tl-active .tl-dot {
+            background: #0f6b5f;
+            border-color: #0f6b5f;
+            box-shadow: 0 0 0 4px rgba(15, 107, 95, 0.2);
+            width: 28px;
+            height: 28px;
+            margin-top: -2px;
+        }
+        .tl-step.tl-active .tl-label { color: #0f6b5f; font-weight: 800; font-size: 0.78rem; }
+
+        /* Imagens clicáveis */
+        .er-image-box img,
+        .er-full img {
+            cursor: zoom-in;
+            transition: opacity 0.2s;
+        }
+
+        .er-image-box img:hover,
+        .er-full img:hover {
+            opacity: 0.85;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.85);
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+        }
+
+        .lightbox.open {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 92vw;
+            max-height: 92vh;
+            border-radius: 8px;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 2.2rem;
+            cursor: pointer;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        @media print {
+            body {
+                background: white;
+                overflow: visible;
+                height: auto;
+            }
+
+            .header-msg,
+            .nav-bar {
+                display: none;
+            }
+
+            .presentation-container {
+                margin: 0;
+                max-width: 100%;
+                width: 100%;
+            }
+
+            .slide {
+                display: flex !important;
+                box-shadow: none;
+                border: none;
+                border-radius: 0;
+                page-break-after: always;
+                height: 100vh;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header-msg">
+        Use os botões ◀ ▶ ou as setas do teclado para navegar entre os slides.
+        <div class="font-controls">
+            <button onclick="changeFontSize(-1)" title="Diminuir fonte">A−</button>
+            <span id="fontSizeLabel">100%</span>
+            <button onclick="changeFontSize(1)" title="Aumentar fonte">A+</button>
+        </div>
+    </div>
+
+    <div class="presentation-container">
+
+        <!-- ==================== SLIDE 1: Mini-Mundo ==================== -->
+        <div class="slide slide-cover active" data-slide="1">
+            <h1>Etapa 2 — Modelo Conceitual (ER)</h1>
+            <p class="domain">Domínio: Biblioteca Escolar</p>
+
+            <div class="miniworld">
+                <p><strong>Mini-Mundo:</strong> A Biblioteca Escolar pretende informatizar o controle do acervo e das
+                    operações relacionadas à circulação de livros, incluindo empréstimos, reservas, multas e avaliações.
+                </p>
+
+                <p><strong>Sobre os alunos:</strong> Cada <em>aluno</em> (matrícula, nome, turma, login, senha) reside
+                    em um único <em>endereço</em> (logradouro, número, bairro, cidade, estado, CEP) e possui um ou mais
+                    <em>telefones</em> de contato (número, tipo).</p>
+
+                <p><strong>Sobre o acervo:</strong> Cada <em>livro</em> (ISBN, título, editora, páginas, multa diária) é
+                    escrito por um ou mais <em>autores</em> (CPF, nome, nacionalidade). Um autor pode estar cadastrado
+                    mesmo sem livros vinculados. Cada livro possui vários <em>exemplares</em> físicos (código,
+                    localização, status: disponível, emprestado, reservado ou danificado).</p>
+
+                <p><strong>Sobre empréstimos:</strong> Os <em>alunos</em> podem realizar <em>empréstimos</em> de
+                    <em>exemplares</em> de livros. Cada <em>empréstimo</em> registra a data do empréstimo, a data
+                    prevista para devolução e a data de devolução efetiva. Cada empréstimo é registrado por um
+                    <em>bibliotecário</em> (registro funcional, nome, login, senha).</p>
+
+                <p><strong>Sobre reservas:</strong> Os <em>alunos</em> podem realizar <em>reservas</em> de
+                    <em>livros</em>. Cada <em>reserva</em> armazena a data da reserva e seu status, que pode ser: ativa,
+                    cancelada ou atendida.</p>
+
+                <p><strong>Sobre multas:</strong> Caso um <em>empréstimo</em> seja devolvido com atraso, o sistema deve
+                    gerar uma <em>multa</em> vinculada ao empréstimo correspondente. Cada <em>multa</em> possui valor,
+                    data de geração e status, que pode ser: pendente, paga ou cancelada.</p>
+
+                <p><strong>Sobre avaliações:</strong> Após a devolução de um exemplar, o <em>aluno</em> pode registrar
+                    uma <em>avaliação</em> vinculada ao empréstimo realizado. Cada <em>avaliação</em> possui nota,
+                    comentário e data.</p>
+            </div>
+        </div>
+
+        <!-- ==================== SLIDE 2: Diagrama ER Completo ==================== -->
+        <div class="slide" data-slide="2">
+            <div class="slide-header">
+                <div class="title-group">
+                    <p class="subtitle">Modelo Conceitual</p>
+                    <h1>Diagrama Entidade-Relacionamento</h1>
+                </div>
+                <div class="slide-number">ER</div>
+            </div>
+            <div class="slide-body" style="align-items: center; justify-content: center;">
+                <div class="er-full">
+                    <img src="https://ravarmes.github.io/curso-bd/moodle/trabalhos/imagens/trabalho_pratica_etapa02.png"
+                        alt="Diagrama ER completo — Biblioteca Escolar" />
+                </div>
+                <p style="color: #64748b; font-size: 0.9rem; margin-top: 0.8rem; text-align: center;">
+                    Diagrama ER completo do estudo de caso — Biblioteca Escolar
+                </p>
+            </div>
+        </div>
+
+        <!-- ==================== SLIDE 3: Reserva de Livro (movido) ==================== -->
+        <!-- ==================== SLIDE 4: Empréstimo de Exemplar ==================== -->
+        <div class="slide" data-slide="4">
+            <div class="slide-header">
+                <div class="title-group">
+                    <p class="subtitle">Análise de Evento</p>
+                    <h1>Empréstimo de Exemplar</h1>
+                </div>
+                <div class="slide-number">02</div>
+            </div>
+            <div class="timeline-strip">
+                <div class="tl-steps">
+                    <div class="tl-step tl-past"><div class="tl-dot"></div><span class="tl-label">Reserva</span></div>
+                    <div class="tl-connector tl-past"></div>
+                    <div class="tl-step tl-active"><div class="tl-dot"></div><span class="tl-label">Empréstimo</span></div>
+                    <div class="tl-connector"></div>
+                    <div class="tl-step"><div class="tl-dot"></div><span class="tl-label">Devolução</span></div>
+                    <div class="tl-connector"></div>
+                    <div class="tl-step"><div class="tl-dot"></div><span class="tl-label">Avaliação</span></div>
+                    <div class="tl-connector"></div>
+                    <div class="tl-step"><div class="tl-dot"></div><span class="tl-label">Multa</span></div>
+                </div>
+            </div>
+            <div class="slide-body">
+                <div class="student-badge" style="margin-bottom: 0.8rem;">🧑‍💻 Apresentador: Aluno 2</div>
+                <p class="event-excerpt"><strong>Trecho do mini-mundo:</strong> Os alunos podem realizar empréstimos de exemplares de livros. Cada empréstimo é registrado por um bibliotecário.</p>
+                <div class="grid-layout">
+                    <div class="col-left">
+                        <div class="data-box">
+                            <h3>📋 Registros do Empréstimo</h3>
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>id</th>
+                                        <th>matricula</th>
+                                        <th>codigo</th>
+                                        <th>registro</th>
+                                        <th>data</th>
+                                        <th>data_previsao</th>
+                                        <th>data_devolucao</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>20261IMI042</td>
+                                        <td>123</td>
+                                        <td>RF1001</td>
+                                        <td>18/01/2026</td>
+                                        <td>25/01/2026</td>
+                                        <td>24/01/2026</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>20261IMI015</td>
+                                        <td>456</td>
+                                        <td>RF1002</td>
+                                        <td>20/01/2026</td>
+                                        <td>27/01/2026</td>
+                                        <td>—</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>20261IMI033</td>
+                                        <td>789</td>
+                                        <td>RF1001</td>
+                                        <td>22/01/2026</td>
+                                        <td>29/01/2026</td>
+                                        <td>31/01/2026</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p style="font-size: 0.82rem; color: #64748b; margin: 0.6rem 0 0 0;">
+                                Entidades envolvidas: <strong>Aluno</strong> (matrícula), <strong>Exemplar</strong> (codigo),
+                                <strong>Bibliotecário</strong> (registro_funcional), <strong>Empréstimo</strong>.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-right">
+                        <div class="er-image-box">
+                            <h3>🔍 Recorte do Modelo ER</h3>
+                            <img src="https://ravarmes.github.io/curso-bd/moodle/trabalhos/imagens/trabalho_pratica_etapa02-emprestimo.png"
+                                alt="Recorte ER — Empréstimo de Exemplar" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== SLIDE 3: Reserva de Livro ==================== -->
+        <div class="slide" data-slide="3">
+            <div class="slide-header">
+                <div class="title-group">
+                    <p class="subtitle">Análise de Evento</p>
+                    <h1>Reserva de Livro</h1>
+                </div>
+                <div class="slide-number">01</div>
+            </div>
+            <div class="timeline-strip">
+                <div class="tl-steps">
+                    <div class="tl-step tl-active"><div class="tl-dot"></div><span class="tl-label">Reserva</span></div>
+                    <div class="tl-connector"></div>
+                    <div class="tl-step"><div class="tl-dot"></div><span class="tl-label">Empréstimo</span></div>
+                    <div class="tl-connector"></div>
+                    <div class="tl-step"><div class="tl-dot"></div><span class="tl-label">Devolução</span></div>
+                    <div class="tl-connector"></div>
+                    <div class="tl-step"><div class="tl-dot"></div><span class="tl-label">Avaliação</span></div>
+                    <div class="tl-connector"></div>
+                    <div class="tl-step"><div class="tl-dot"></div><span class="tl-label">Multa</span></div>
+                </div>
+            </div>
+            <div class="slide-body">
+                <div class="student-badge" style="margin-bottom: 0.8rem;">👩‍💻 Apresentador: Aluno 1</div>
+                <p class="event-excerpt"><strong>Trecho do mini-mundo:</strong> Os alunos podem realizar reservas de livros. Cada reserva armazena a data da reserva e status, que pode ser: ativa, cancelada ou atendida.</p>
+                <div class="grid-layout">
+                    <div class="col-left">
+                        <div class="data-box">
+                            <h3>📋 Registros da Reserva</h3>
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>aluno (matrícula)</th>
+                                        <th>livro (ISBN)</th>
+                                        <th>data_reserva</th>
+                                        <th>status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>20261IMI042</td>
+                                        <td>978-85-7522-480</td>
+                                        <td>20/01/2026</td>
+                                        <td>ativa</td>
+                                    </tr>
+                                    <tr>
+                                        <td>20261IMI015</td>
+                                        <td>978-85-7522-480</td>
+                                        <td>21/01/2026</td>
+                                        <td>atendida</td>
+                                    </tr>
+                                    <tr>
+                                        <td>20261IMI033</td>
+                                        <td>978-85-3611-210</td>
+                                        <td>23/01/2026</td>
+                                        <td>cancelada</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p style="font-size: 0.82rem; color: #64748b; margin: 0.6rem 0 0 0;">
+                                Entidades envolvidas: <strong>Aluno</strong>, <strong>Livro</strong>. Relacionamento:
+                                <strong>reserva</strong> (com atributos data_reserva e status).
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-right">
+                        <div class="er-image-box">
+                            <h3>🔍 Recorte do Modelo ER</h3>
+                            <img src="https://ravarmes.github.io/curso-bd/moodle/trabalhos/imagens/trabalho_pratica_etapa02-reserva.png"
+                                alt="Recorte ER — Reserva de Livro" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== SLIDE 5: Avaliação de Leitura ==================== -->
+        <div class="slide" data-slide="5">
+            <div class="slide-header">
+                <div class="title-group">
+                    <p class="subtitle">Análise de Evento</p>
+                    <h1>Avaliação de Leitura</h1>
+                </div>
+                <div class="slide-number">03</div>
+            </div>
+            <div class="timeline-strip">
+                <div class="tl-steps">
+                    <div class="tl-step tl-past"><div class="tl-dot"></div><span class="tl-label">Reserva</span></div>
+                    <div class="tl-connector tl-past"></div>
+                    <div class="tl-step tl-past"><div class="tl-dot"></div><span class="tl-label">Empréstimo</span></div>
+                    <div class="tl-connector tl-past"></div>
+                    <div class="tl-step tl-past"><div class="tl-dot"></div><span class="tl-label">Devolução</span></div>
+                    <div class="tl-connector tl-past"></div>
+                    <div class="tl-step tl-active"><div class="tl-dot"></div><span class="tl-label">Avaliação</span></div>
+                    <div class="tl-connector"></div>
+                    <div class="tl-step"><div class="tl-dot"></div><span class="tl-label">Multa</span></div>
+                </div>
+            </div>
+            <div class="slide-body">
+                <div class="student-badge" style="margin-bottom: 0.8rem;">🧑‍💻 Apresentador: Aluno 3</div>
+                <p class="event-excerpt"><strong>Trecho do mini-mundo:</strong> Após a devolução de um exemplar, o aluno pode registrar uma avaliação vinculada ao empréstimo realizado. Cada avaliação possui nota, comentário e data.</p>
+                <div class="grid-layout">
+                    <div class="col-left">
+                        <div class="data-box">
+                            <h3>📋 Registros da Avaliação</h3>
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>empréstimo (id)</th>
+                                        <th>nota</th>
+                                        <th>comentário</th>
+                                        <th>data_avaliacao</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>5</td>
+                                        <td>Excelente didática</td>
+                                        <td>25/01/2026</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>3</td>
+                                        <td>Conteúdo denso</td>
+                                        <td>01/02/2026</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>4</td>
+                                        <td>Bom, porém desatualizado</td>
+                                        <td>03/02/2026</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p style="font-size: 0.82rem; color: #64748b; margin: 0.6rem 0 0 0;">
+                                Entidades envolvidas: <strong>Empréstimo</strong>, <strong>Avaliação</strong>. A
+                                avaliação é vinculada ao empréstimo (o aluno só avalia livros que pegou emprestado).
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-right">
+                        <div class="er-image-box">
+                            <h3>🔍 Recorte do Modelo ER</h3>
+                            <img src="https://ravarmes.github.io/curso-bd/moodle/trabalhos/imagens/trabalho_pratica_etapa02-avaliacao.png"
+                                alt="Recorte ER — Avaliação de Leitura" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== SLIDE 6: Multa e Atraso ==================== -->
+        <div class="slide" data-slide="6">
+            <div class="slide-header">
+                <div class="title-group">
+                    <p class="subtitle">Análise de Evento</p>
+                    <h1>Multa e Atraso na Devolução</h1>
+                </div>
+                <div class="slide-number">04</div>
+            </div>
+            <div class="timeline-strip">
+                <div class="tl-steps">
+                    <div class="tl-step tl-past"><div class="tl-dot"></div><span class="tl-label">Reserva</span></div>
+                    <div class="tl-connector tl-past"></div>
+                    <div class="tl-step tl-past"><div class="tl-dot"></div><span class="tl-label">Empréstimo</span></div>
+                    <div class="tl-connector tl-past"></div>
+                    <div class="tl-step tl-past"><div class="tl-dot"></div><span class="tl-label">Devolução</span></div>
+                    <div class="tl-connector tl-past"></div>
+                    <div class="tl-step tl-past"><div class="tl-dot"></div><span class="tl-label">Avaliação</span></div>
+                    <div class="tl-connector tl-past"></div>
+                    <div class="tl-step tl-active"><div class="tl-dot"></div><span class="tl-label">Multa</span></div>
+                </div>
+            </div>
+            <div class="slide-body">
+                <div class="student-badge" style="margin-bottom: 0.8rem;">👩‍💻 Apresentador: Aluno 4</div>
+                <p class="event-excerpt"><strong>Trecho do mini-mundo:</strong> Caso um empréstimo seja devolvido com atraso, o sistema deve gerar uma multa vinculada ao empréstimo correspondente. Cada multa possui valor, data de geração e status, que pode ser: pendente, paga ou cancelada.</p>
+                <div class="grid-layout">
+                    <div class="col-left">
+                        <div class="data-box">
+                            <h3>📋 Registros da Multa</h3>
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>empréstimo (id)</th>
+                                        <th>valor</th>
+                                        <th>data_geracao</th>
+                                        <th>status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>R$ 4,00</td>
+                                        <td>30/01/2026</td>
+                                        <td>pendente</td>
+                                    </tr>
+                                    <tr>
+                                        <td>7</td>
+                                        <td>R$ 6,00</td>
+                                        <td>02/02/2026</td>
+                                        <td>paga</td>
+                                    </tr>
+                                    <tr>
+                                        <td>12</td>
+                                        <td>R$ 2,00</td>
+                                        <td>05/02/2026</td>
+                                        <td>cancelada</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p style="font-size: 0.82rem; color: #64748b; margin: 0.6rem 0 0 0;">
+                                Entidades envolvidas: <strong>Empréstimo</strong>, <strong>Multa</strong>.
+                                Relacionamento: <strong>gera</strong> (multa gerada automaticamente em caso de atraso).
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-right">
+                        <div class="er-image-box">
+                            <h3>🔍 Recorte do Modelo ER</h3>
+                            <img src="https://ravarmes.github.io/curso-bd/moodle/trabalhos/imagens/trabalho_pratica_etapa02-multa.png"
+                                alt="Recorte ER — Multa e Atraso" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+        <img id="lightboxImg" src="" alt="Imagem ampliada" />
+    </div>
+
+    <!-- Barra de Navegação -->
+    <div class="nav-bar">
+        <button id="btnPrev" onclick="changeSlide(-1)">◀ Anterior</button>
+        <span class="nav-indicator" id="navIndicator">1 / 6</span>
+        <button id="btnNext" onclick="changeSlide(1)">Próximo ▶</button>
+    </div>
+
+    <script>
+        // Font size control
+        let fontScale = 100;
+        const baseFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+        function changeFontSize(dir) {
+            fontScale = Math.max(70, Math.min(150, fontScale + dir * 10));
+            document.documentElement.style.fontSize = (baseFontSize * fontScale / 100) + 'px';
+            document.getElementById('fontSizeLabel').textContent = fontScale + '%';
+        }
+
+        let current = 1;
+        const total = document.querySelectorAll('.slide').length;
+
+        function showSlide(n) {
+            document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+            document.querySelector('[data-slide="' + n + '"]').classList.add('active');
+            document.getElementById('navIndicator').textContent = n + ' / ' + total;
+            document.getElementById('btnPrev').disabled = (n === 1);
+            document.getElementById('btnNext').disabled = (n === total);
+        }
+
+        function changeSlide(dir) {
+            const next = current + dir;
+            if (next >= 1 && next <= total) {
+                current = next;
+                showSlide(current);
+            }
+        }
+
+        // Lightbox
+        function openLightbox(src) {
+            document.getElementById('lightboxImg').src = src;
+            document.getElementById('lightbox').classList.add('open');
+        }
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('open');
+            document.getElementById('lightboxImg').src = '';
+        }
+        document.querySelectorAll('.er-image-box img, .er-full img').forEach(function (img) {
+            img.addEventListener('click', function (e) {
+                e.stopPropagation();
+                openLightbox(this.src);
+            });
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (document.getElementById('lightbox').classList.contains('open')) {
+                if (e.key === 'Escape') closeLightbox();
+                return;
+            }
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') changeSlide(1);
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') changeSlide(-1);
+        });
+
+        showSlide(1);
+    </script>
+
+</body>
+
+</html>

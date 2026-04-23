@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apresentação do Backend Node + Sequelize</title>
+  <script>
+    (() => {
+      const storedTheme = localStorage.getItem('presentation-theme');
+      const storedFontScale = localStorage.getItem('presentation-font-scale');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const theme = storedTheme === 'light' || storedTheme === 'dark'
+        ? storedTheme
+        : (systemPrefersDark ? 'dark' : 'light');
+      const fontScale = Number(storedFontScale);
+      document.documentElement.dataset.theme = theme;
+      document.documentElement.style.setProperty('--font-scale', Number.isFinite(fontScale) ? String(fontScale) : '1');
+    })();
+  </script>
+  <style>
+    :root {
+      --font-scale: 1;
+      --page-accent-1: rgba(49, 128, 255, 0.18);
+      --page-accent-2: rgba(99, 210, 255, 0.18);
+      --page-bg: linear-gradient(135deg, #edf4ff, #dde9fb 55%, #f8fbff);
+      --deck-bg: rgba(255, 255, 255, 0.76);
+      --deck-border: rgba(78, 112, 173, 0.18);
+      --panel: rgba(255, 255, 255, 0.86);
+      --text: #15304e;
+      --muted: #55708f;
+      --primary: #1277d1;
+      --secondary: #5566f6;
+      --accent: #0dbb96;
+      --warning: #d38a08;
+      --border: rgba(81, 122, 196, 0.18);
+      --line: rgba(69, 96, 143, 0.12);
+      --soft-bg: rgba(17, 95, 184, 0.06);
+      --button-bg: rgba(18, 119, 209, 0.1);
+      --button-hover: rgba(18, 119, 209, 0.16);
+      --progress-track: rgba(18, 119, 209, 0.12);
+      --code-bg: #091120;
+      --code-text: #dbe8ff;
+      --logo-bg: rgba(255, 255, 255, 0.95);
+      --shadow: 0 18px 50px rgba(34, 66, 117, 0.16);
+      --radius: 24px;
+      --scrollbar: rgba(18, 119, 209, 0.38);
+      --scrollbar-track: rgba(18, 119, 209, 0.08);
+    }
+
+    html[data-theme="dark"] {
+      --page-accent-1: rgba(99, 210, 255, 0.18);
+      --page-accent-2: rgba(123, 140, 255, 0.16);
+      --page-bg: linear-gradient(135deg, #050b15, #0c1730 55%, #060c18);
+      --deck-bg: rgba(7, 14, 26, 0.78);
+      --deck-border: rgba(255, 255, 255, 0.08);
+      --panel: rgba(10, 20, 37, 0.86);
+      --text: #ecf3ff;
+      --muted: #9db1d1;
+      --primary: #63d2ff;
+      --secondary: #7b8cff;
+      --accent: #47f3c3;
+      --warning: #ffd76b;
+      --border: rgba(140, 181, 255, 0.22);
+      --line: rgba(255, 255, 255, 0.06);
+      --soft-bg: rgba(255, 255, 255, 0.04);
+      --button-bg: rgba(255, 255, 255, 0.08);
+      --button-hover: rgba(255, 255, 255, 0.12);
+      --progress-track: rgba(255, 255, 255, 0.08);
+      --code-bg: #091120;
+      --code-text: #dbe8ff;
+      --logo-bg: rgba(255, 255, 255, 0.9);
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.38);
+      --scrollbar: rgba(99, 210, 255, 0.45);
+      --scrollbar-track: rgba(255, 255, 255, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: calc(16px * var(--font-scale));
+      background:
+        radial-gradient(circle at top left, var(--page-accent-1), transparent 28%),
+        radial-gradient(circle at top right, var(--page-accent-2), transparent 24%),
+        var(--page-bg);
+      color: var(--text);
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .deck {
+      width: min(1400px, 100%);
+      height: min(860px, calc(100vh - 48px));
+      background: var(--deck-bg);
+      border: 1px solid var(--deck-border);
+      border-radius: 32px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 28px 12px;
+      border-bottom: 1px solid var(--line);
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand img {
+      width: 64px;
+      height: 64px;
+      object-fit: cover;
+      border-radius: 18px;
+      background: var(--logo-bg);
+      padding: 6px;
+    }
+
+    .topbar-controls {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex: 1;
+      justify-content: flex-end;
+    }
+
+    .accessibility-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: clamp(1.2rem, 2vw, 1.8rem);
+      line-height: 1.15;
+    }
+
+    .brand p,
+    .counter {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .progress-track {
+      flex: 1;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--progress-track);
+      overflow: hidden;
+      max-width: 360px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 999px;
+      transition: width 0.35s ease;
+    }
+
+    .slides {
+      position: relative;
+      overflow: hidden;
+      min-height: 0;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      padding: 30px 36px 40px;
+      display: grid;
+      gap: 18px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(40px) scale(0.985);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+      scrollbar-color: var(--scrollbar) var(--scrollbar-track);
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0) scale(1);
+      z-index: 1;
+    }
+
+    .slide::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    .slide::-webkit-scrollbar-thumb {
+      background: var(--scrollbar);
+      border-radius: 999px;
+    }
+
+    .slide::-webkit-scrollbar-track {
+      background: var(--scrollbar-track);
+      border-radius: 999px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(99, 210, 255, 0.12);
+      color: var(--primary);
+      width: fit-content;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .hero {
+      grid-template-columns: 1.2fr 0.9fr;
+      align-items: center;
+    }
+
+    .hero h2,
+    .title {
+      margin: 0;
+      font-size: clamp(1.5rem, 2.8vw, 2.5rem);
+      line-height: 1.12;
+    }
+
+    .hero p,
+    .lead {
+      margin: 0;
+      font-size: clamp(0.96rem, 1.3vw, 1.08rem);
+      color: var(--muted);
+      line-height: 1.5;
+      max-width: 760px;
+    }
+
+    .hero-panel,
+    .panel,
+    .code,
+    .mini-card,
+    .step,
+    .metric,
+    .timeline-card,
+    .question,
+    .tip {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-panel {
+      padding: 22px;
+      display: grid;
+      gap: 14px;
+      align-content: start;
+      min-height: 100%;
+    }
+
+    .chips,
+    .tag-row,
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip,
+    .tag {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--soft-bg);
+      color: var(--text);
+      font-size: 0.9rem;
+      border: 1px solid var(--line);
+    }
+
+    .chip strong,
+    .tag strong {
+      color: var(--accent);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .metric {
+      padding: 18px;
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+    }
+
+    .metric strong {
+      font-size: 1.8rem;
+      color: var(--primary);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 22px;
+      min-height: 100%;
+    }
+
+    .panel {
+      padding: 20px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .panel h3,
+    .code h3 {
+      margin: 0;
+      font-size: 1.15rem;
+    }
+
+    .panel p,
+    .panel li,
+    .code li,
+    .question p,
+    .tip p {
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    ul.clean {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    ul.clean li {
+      padding: 12px 14px;
+      border-radius: 18px;
+      background: var(--soft-bg);
+      border: 1px solid var(--line);
+    }
+
+    ul.clean li strong {
+      color: var(--text);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 14px;
+      align-items: center;
+    }
+
+    .step {
+      padding: 14px 12px;
+      min-height: 132px;
+      display: grid;
+      align-content: start;
+      gap: 8px;
+      position: relative;
+    }
+
+    .step::after {
+      content: "→";
+      position: absolute;
+      right: -14px;
+      top: calc(50% - 16px);
+      color: var(--primary);
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+
+    .step:last-child::after {
+      display: none;
+    }
+
+    .step span {
+      font-size: 0.85rem;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+    }
+
+    .step h4 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .step p {
+      margin: 0;
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    .folder-grid,
+    .role-grid,
+    .example-grid,
+    .tips-grid,
+    .summary-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .folder-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .role-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .example-grid {
+      grid-template-columns: 0.9fr 1.1fr;
+    }
+
+    .tips-grid,
+    .summary-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .mini-card,
+    .timeline-card,
+    .question,
+    .tip {
+      padding: 18px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .mini-card h4,
+    .timeline-card h4,
+    .question h4,
+    .tip h4 {
+      margin: 0;
+      font-size: 1.15rem;
+    }
+
+    .mini-card p,
+    .timeline-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .mini-card strong,
+    .timeline-card strong {
+      color: var(--accent);
+      font-size: 0.92rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .code {
+      padding: 18px;
+      display: grid;
+      gap: 12px;
+    }
+
+    pre {
+      margin: 0;
+      overflow: auto;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: var(--code-bg);
+      color: var(--code-text);
+      font-size: 0.84rem;
+      line-height: 1.35;
+      border: 1px solid var(--line);
+    }
+
+    .code-window {
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--code-bg);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+
+    .code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, 0.04);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      color: #b5c9ea;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .code-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .code-dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      display: block;
+    }
+
+    .code-dots span:nth-child(1) { background: #ff6b6b; }
+    .code-dots span:nth-child(2) { background: #ffd166; }
+    .code-dots span:nth-child(3) { background: #4cd964; }
+
+    .code-window pre {
+      border: none;
+      border-radius: 0;
+      background: transparent;
+      padding: 14px 16px 16px;
+      font-size: 0.82rem;
+    }
+
+    .emphasis {
+      color: var(--warning);
+      font-weight: 700;
+    }
+
+    .image-frame {
+      overflow: hidden;
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      background: var(--soft-bg);
+      min-height: 260px;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+    }
+
+    .image-zoom-trigger {
+      border: none;
+      background: transparent;
+      padding: 0;
+      width: 100%;
+      cursor: zoom-in;
+      display: grid;
+      place-items: center;
+    }
+
+    .image-frame img {
+      max-width: 100%;
+      max-height: 250px;
+      object-fit: contain;
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .zoom-hint {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      margin: 10px auto 0;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--soft-bg);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 28px 22px;
+      border-top: 1px solid var(--line);
+      gap: 18px;
+    }
+
+    .nav-buttons {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    button {
+      border: none;
+      border-radius: 14px;
+      padding: 12px 18px;
+      font-size: 0.96rem;
+      font-weight: 700;
+      cursor: pointer;
+      color: var(--text);
+      background: var(--button-bg);
+      transition: transform 0.18s ease, background 0.18s ease, opacity 0.18s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      background: var(--button-hover);
+    }
+
+    button.primary {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #04111d;
+    }
+
+    .dots {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      flex: 1;
+    }
+
+    .dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 999px;
+      background: var(--button-bg);
+      border: 1px solid var(--line);
+      cursor: pointer;
+      transition: transform 0.18s ease, background 0.18s ease;
+    }
+
+    .dot.active {
+      background: var(--accent);
+      transform: scale(1.18);
+    }
+
+    .shortcut {
+      color: var(--muted);
+      font-size: 0.92rem;
+      white-space: nowrap;
+    }
+
+    .highlight {
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .theme-toggle {
+      min-width: 158px;
+      white-space: nowrap;
+    }
+
+    .font-btn {
+      min-width: 52px;
+      padding: 10px 14px;
+    }
+
+    .font-indicator {
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-weight: 700;
+      min-width: 54px;
+      text-align: center;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 28px;
+      background: rgba(4, 10, 20, 0.78);
+      backdrop-filter: blur(8px);
+      z-index: 40;
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-card {
+      width: min(1200px, 100%);
+      max-height: calc(100vh - 56px);
+      padding: 18px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      display: grid;
+      gap: 14px;
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .modal-header h3 {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+
+    .modal-image {
+      overflow: auto;
+      border-radius: 18px;
+      background: var(--soft-bg);
+      border: 1px solid var(--line);
+      padding: 14px;
+      display: grid;
+      place-items: center;
+    }
+
+    .modal-image img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    @media (max-width: 1100px) {
+      body {
+        padding: 12px;
+      }
+
+      .deck {
+        height: calc(100vh - 24px);
+      }
+
+      .hero,
+      .two-col,
+      .example-grid,
+      .tips-grid,
+      .summary-grid,
+      .role-grid,
+      .folder-grid,
+      .timeline {
+        grid-template-columns: 1fr;
+      }
+
+      .flow {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .topbar {
+        flex-wrap: wrap;
+      }
+
+      .topbar-controls {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .accessibility-controls {
+        flex-wrap: wrap;
+      }
+
+      .step::after {
+        display: none;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .topbar,
+      .footer {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .slide {
+        padding: 22px 16px 28px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .flow {
+        grid-template-columns: 1fr;
+      }
+
+      .shortcut {
+        display: none;
+      }
+
+      .topbar-controls {
+        flex-wrap: wrap;
+      }
+
+      .progress-track {
+        max-width: none;
+        width: 100%;
+        order: 2;
+      }
+
+      .accessibility-controls {
+        width: 100%;
+        justify-content: flex-end;
+      }
+
+      .modal {
+        padding: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="deck">
+    <header class="topbar">
+      <div class="brand">
+        <img src="./assets/logo.jpg" alt="Logo do projeto">
+        <div>
+          <h1>Backend Completo com Node.js + Sequelize</h1>
+          <p>Camadas controllers, services e models</p>
+        </div>
+      </div>
+      <div class="topbar-controls">
+        <div class="progress-track" aria-hidden="true">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <p class="counter"><span id="currentSlide">1</span> / <span id="totalSlides">10</span></p>
+        <div class="accessibility-controls">
+          <button type="button" class="font-btn" id="decreaseFontBtn" aria-label="Diminuir fonte">A-</button>
+          <div class="font-indicator" id="fontIndicator">100%</div>
+          <button type="button" class="font-btn" id="increaseFontBtn" aria-label="Aumentar fonte">A+</button>
+        </div>
+        <button type="button" class="theme-toggle" id="themeToggle">☀️ Modo claro</button>
+      </div>
+    </header>
+
+    <section class="slides">
+      <article class="slide active">
+        <div class="hero">
+          <div>
+            <div class="eyebrow">Visão Geral do Projeto</div>
+            <h2>Arquitetura do backend</h2>
+            <p class="lead">Nesta etapa, o foco está em entender o papel de <span class="highlight">controllers</span>, <span class="highlight">services</span> e <span class="highlight">models</span> dentro do fluxo de uma API REST.</p>
+            <div class="chips" style="margin-top: 24px;">
+              <div class="chip"><strong>Tecnologias:</strong> Express, Sequelize, SQLite</div>
+              <div class="chip"><strong>Domínio:</strong> Sistema de Controle de Videolocadora</div>
+              <div class="chip"><strong>Etapa:</strong> cadastros e CRUD</div>
+            </div>
+          </div>
+          <div class="hero-panel">
+            <div class="stats">
+              <div class="metric">
+                <span>Controllers</span>
+                <strong>11</strong>
+              </div>
+              <div class="metric">
+                <span>Services</span>
+                <strong>11</strong>
+              </div>
+              <div class="metric">
+                <span>Models</span>
+                <strong>17</strong>
+              </div>
+            </div>
+            <div class="image-frame">
+              <button type="button" class="image-zoom-trigger" id="openDiagramBtn" aria-label="Ampliar diagrama do projeto">
+                <img src="./assets/uml.png" alt="Diagrama UML do projeto">
+              </button>
+              <div class="zoom-hint">Clique para ampliar</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide">
+        <div class="eyebrow">Objetivos</div>
+        <h2 class="title">Objetivos da etapa</h2>
+        <div class="tips-grid">
+          <div class="question">
+            <h4>1. Separação de responsabilidades</h4>
+            <p>O aluno deve perceber que uma API organizada não coloca tudo dentro de um único arquivo. Cada camada resolve um tipo de problema.</p>
+          </div>
+          <div class="question">
+            <h4>2. Fluxo completo da requisição</h4>
+            <p>É importante mostrar como o dado sai do frontend, entra pela rota, percorre controller, service, model e retorna em JSON.</p>
+          </div>
+          <div class="question">
+            <h4>3. Organização escalável</h4>
+            <p>Quando surgem novos cadastros, a estrutura já está pronta: normalmente adicionamos rota, controller, service e model.</p>
+          </div>
+          <div class="question">
+            <h4>4. Reuso de padrão</h4>
+            <p>Os pacotes do projeto seguem um padrão repetível. Isso facilita explicar que <span class="emphasis">aprender um recurso ajuda a entender todos os outros</span>.</p>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>Ideia central</h3>
+          <p>O projeto não é apenas um conjunto de arquivos. Ele é uma <span class="highlight">linha de montagem da informação</span>: cada pacote recebe o dado, trata uma parte da responsabilidade e repassa para a próxima camada.</p>
+        </div>
+      </article>
+
+      <article class="slide">
+        <div class="eyebrow">Estrutura de Pastas</div>
+        <h2 class="title">Estrutura do <span class="highlight">src</span></h2>
+        <div class="folder-grid">
+          <div class="mini-card">
+            <strong>controllers</strong>
+            <h4>Camada de entrada HTTP</h4>
+            <p>Recebe a chamada da rota, aciona o service correto e devolve a resposta JSON ao cliente.</p>
+          </div>
+          <div class="mini-card">
+            <strong>services</strong>
+            <h4>Camada de regras e operações</h4>
+            <p>Implementa regras de negócio, valida dependências, cria transações e conversa com os models.</p>
+          </div>
+          <div class="mini-card">
+            <strong>models</strong>
+            <h4>Camada de mapeamento do banco</h4>
+            <p>Define campos, tipos, validações, nomes de tabelas e relacionamentos entre entidades.</p>
+          </div>
+          <div class="mini-card">
+            <strong>config</strong>
+            <h4>Infraestrutura de banco</h4>
+            <p>Centraliza configuração do Sequelize, conexão, sincronização e carga inicial de dados.</p>
+          </div>
+          <div class="mini-card">
+            <strong>routes.js</strong>
+            <h4>Mapa da API</h4>
+            <p>Expõe endpoints como <span class="highlight">/ufs</span>, <span class="highlight">/filmes</span> e <span class="highlight">/fitas</span>, apontando para os controllers.</p>
+          </div>
+          <div class="mini-card">
+            <strong>_middleware</strong>
+            <h4>Tratamento centralizado de erros</h4>
+            <p>Converte falhas em respostas HTTP padronizadas, evitando repetição de tratamento em cada classe.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide">
+        <div class="eyebrow">Fluxo da Requisição</div>
+        <h2 class="title">Fluxo da requisição</h2>
+        <div class="flow">
+          <div class="step">
+            <span>Passo 1</span>
+            <h4>Frontend</h4>
+            <p>Envia uma requisição HTTP para a API, por exemplo <strong>POST /ufs</strong>.</p>
+          </div>
+          <div class="step">
+            <span>Passo 2</span>
+            <h4>Route</h4>
+            <p>Identifica qual controller deve atender aquele endpoint.</p>
+          </div>
+          <div class="step">
+            <span>Passo 3</span>
+            <h4>Controller</h4>
+            <p>Recebe <strong>req</strong> e <strong>res</strong>, delega ao service e monta a resposta.</p>
+          </div>
+          <div class="step">
+            <span>Passo 4</span>
+            <h4>Service</h4>
+            <p>Executa regras de negócio, valida dados e chama os models necessários.</p>
+          </div>
+          <div class="step">
+            <span>Passo 5</span>
+            <h4>Model</h4>
+            <p>Usa o Sequelize para acessar tabela, validar campos e percorrer relacionamentos.</p>
+          </div>
+          <div class="step">
+            <span>Passo 6</span>
+            <h4>Resposta JSON</h4>
+            <p>O resultado volta pela mesma trilha até o cliente, já serializado em JSON.</p>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>Ideia principal</h3>
+          <p>Em uma arquitetura em camadas, cada pacote assume uma função específica. Isso deixa a aplicação mais organizada, facilita manutenção e reduz a mistura entre regras de negócio, acesso ao banco e resposta HTTP.</p>
+        </div>
+      </article>
+
+      <article class="slide">
+        <div class="eyebrow">Controller</div>
+        <h2 class="title">Função do <span class="highlight">controller</span></h2>
+        <div class="two-col">
+          <div class="panel">
+            <h3>O que ele faz</h3>
+            <ul class="clean">
+              <li><strong>Recebe a requisição</strong> através das rotas do Express.</li>
+              <li><strong>Chama o service</strong> correspondente à ação desejada.</li>
+              <li><strong>Transforma o retorno em JSON</strong> com <span class="highlight">res.json(...)</span>.</li>
+              <li><strong>Encaminha erros</strong> com <span class="highlight">catch(next)</span> para o middleware global.</li>
+              <li><strong>Permanece enxuto</strong>, sem colocar regra de negócio complexa.</li>
+            </ul>
+          </div>
+          <div class="code">
+            <h3>Exemplo real: UfController</h3>
+            <div class="code-window">
+              <div class="code-header">
+                <div class="code-dots"><span></span><span></span><span></span></div>
+                <span>UfController.js</span>
+              </div>
+              <pre>class UfController {
+  static async create(req, res, next) {
+    UfService.create(req)
+      .then(obj =&gt; res.json(obj))
+      .catch(next);
+  }
+}</pre>
+            </div>
+            <div class="legend">
+              <div class="tag"><strong>Ideia-chave:</strong> controller coordena</div>
+              <div class="tag"><strong>Exemplo simples:</strong> criação de UF</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide">
+        <div class="eyebrow">Service</div>
+        <h2 class="title">Função do <span class="highlight">service</span></h2>
+        <div class="two-col">
+          <div class="panel">
+            <h3>O que ele faz</h3>
+            <ul class="clean">
+              <li><strong>Extrai dados</strong> de <span class="highlight">req.params</span> e <span class="highlight">req.body</span>.</li>
+              <li><strong>Aplica regras de negócio</strong>, como verificar dependências obrigatórias.</li>
+              <li><strong>Coordena o acesso ao model</strong> sem acoplar essa lógica ao controller.</li>
+              <li><strong>Executa o CRUD</strong> com regras de busca, criação, alteração e remoção.</li>
+              <li><strong>Recarrega dados</strong> quando necessário para devolver o registro persistido.</li>
+            </ul>
+          </div>
+          <div class="code">
+            <h3>Exemplo real: UfService</h3>
+            <div class="code-window">
+              <div class="code-header">
+                <div class="code-dots"><span></span><span></span><span></span></div>
+                <span>UfService.js</span>
+              </div>
+              <pre>static async create(req) {
+  const { sigla, nome } = req.body;
+  const obj = await Uf.create({ sigla, nome });
+  return await Uf.findByPk(obj.id, {
+    include: { all: true, nested: true }
+  });
+}</pre>
+            </div>
+            <div class="legend">
+              <div class="tag"><strong>Ideia-chave:</strong> service implementa a lógica</div>
+              <div class="tag"><strong>Exemplo:</strong> criação simples de cadastro</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide">
+        <div class="eyebrow">Model</div>
+        <h2 class="title">Função do <span class="highlight">model</span></h2>
+        <div class="two-col">
+          <div class="panel">
+            <h3>O que ele faz</h3>
+            <ul class="clean">
+              <li><strong>Mapeia a tabela</strong> com nome do model e nome físico da tabela.</li>
+              <li><strong>Declara atributos</strong> com tipos Sequelize, como STRING, INTEGER e DATEONLY.</li>
+              <li><strong>Aplica validações</strong> como <span class="highlight">notEmpty</span>, <span class="highlight">len</span>, <span class="highlight">isDate</span> e expressões regulares.</li>
+              <li><strong>Define relacionamentos</strong> quando a entidade se conecta a outras tabelas.</li>
+              <li><strong>Representa a entidade</strong> que será persistida no banco.</li>
+            </ul>
+          </div>
+          <div class="code">
+            <h3>Exemplo real: Uf</h3>
+            <div class="code-window">
+              <div class="code-header">
+                <div class="code-dots"><span></span><span></span><span></span></div>
+                <span>Uf.js</span>
+              </div>
+              <pre>class Uf extends Model {
+  static init(sequelize) {
+    super.init({
+      sigla: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      nome: {
+        type: DataTypes.STRING,
+        allowNull: false
+      }
+    }, { sequelize, modelName: 'uf', tableName: 'ufs' })
+  }
+}</pre>
+            </div>
+            <div class="legend">
+              <div class="tag"><strong>Ideia-chave:</strong> model descreve a entidade</div>
+              <div class="tag"><strong>Exemplo:</strong> entidade simples para iniciar</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide">
+        <div class="eyebrow">Exemplo Integrado</div>
+        <h2 class="title">Exemplo com <span class="highlight">UF</span></h2>
+        <div class="example-grid">
+          <div class="panel">
+            <h3>Fluxo do exemplo</h3>
+            <ul class="clean">
+              <li><strong>Requisição:</strong> o frontend chama <span class="highlight">POST /ufs</span>.</li>
+              <li><strong>Controller:</strong> delega para <span class="highlight">UfService.create(req)</span>.</li>
+              <li><strong>Service:</strong> extrai <span class="highlight">sigla</span> e <span class="highlight">nome</span> do corpo da requisição.</li>
+              <li><strong>Model:</strong> define campos obrigatórios e o mapeamento para a tabela <span class="highlight">ufs</span>.</li>
+              <li><strong>Resposta:</strong> devolve a UF criada em formato JSON.</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>O que este exemplo mostra</h3>
+            <div class="timeline">
+              <div class="timeline-card">
+                <strong>Controller</strong>
+                <h4>Coordena a entrada</h4>
+                <p>Recebe a chamada HTTP e direciona a ação para o service correto.</p>
+              </div>
+              <div class="timeline-card">
+                <strong>Service</strong>
+                <h4>Executa a operação</h4>
+                <p>Organiza a criação do registro e centraliza a lógica da funcionalidade.</p>
+              </div>
+              <div class="timeline-card">
+                <strong>Model</strong>
+                <h4>Define a estrutura</h4>
+                <p>Representa a entidade UF com seus campos e validações básicas.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide">
+        <div class="eyebrow">Projeto</div>
+        <h2 class="title">Projeto e evolução</h2>
+        <div class="summary-grid">
+          <div class="mini-card">
+            <strong>Cadastros já expostos</strong>
+            <p>UF, Cidade, Bairro, Cliente, Funcionário, Gerente, TipoDeFilme, Diretor, Artista, Filme e Fita já possuem rota, controller e service.</p>
+          </div>
+          <div class="mini-card">
+            <strong>Domínio já modelado</strong>
+            <p>O projeto também já possui entidades como Empréstimo, Devolução, Reserva, ItemDeEmprestimo e Multa, preparando a evolução do sistema.</p>
+          </div>
+          <div class="mini-card">
+            <strong>Padrão repetível</strong>
+            <p>Quando um novo cadastro entra no sistema, a turma pode seguir o mesmo ciclo: modelar, criar service, criar controller e expor rota.</p>
+          </div>
+          <div class="mini-card">
+            <strong>Aprendizado incremental</strong>
+            <p>Primeiro vem a base CRUD. Depois, a mesma arquitetura apoia processos de negócio e relatórios.</p>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>Conclusão</h3>
+          <p>Mesmo estudando primeiro os cadastros básicos, já é possível perceber que o sistema foi preparado para crescer. A mesma arquitetura será reaproveitada quando entrarem os processos de empréstimo, devolução, reserva e multa.</p>
+        </div>
+      </article>
+
+      <article class="slide">
+        <div class="eyebrow">Boas Práticas</div>
+        <h2 class="title">Como ler a arquitetura</h2>
+        <div class="tips-grid">
+          <div class="tip">
+            <h4>Observe a rota</h4>
+            <p>Ela mostra qual endpoint foi criado e qual controller será acionado quando a requisição chegar.</p>
+          </div>
+          <div class="tip">
+            <h4>Leia o controller</h4>
+            <p>Ele normalmente é enxuto e serve para encaminhar a requisição e devolver a resposta ao cliente.</p>
+          </div>
+          <div class="tip">
+            <h4>Estude o service</h4>
+            <p>É nele que aparecem as ações do CRUD, as validações e a conversa com o model.</p>
+          </div>
+          <div class="tip">
+            <h4>Entenda o model</h4>
+            <p>O model revela como a entidade é salva no banco, quais campos existem e quais validações são aplicadas.</p>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>Padrão do projeto</h3>
+          <p>Se uma nova entidade for criada amanhã, o caminho de implementação continua parecido: model, service, controller e rota. Esse padrão torna o backend mais previsível e mais fácil de manter.</p>
+        </div>
+      </article>
+
+      <article class="slide">
+        <div class="hero">
+          <div>
+            <div class="eyebrow">Fechamento</div>
+            <h2>Resumo final</h2>
+            <p class="lead">Neste projeto, <span class="highlight">routes</span> mapeiam a API, <span class="highlight">controllers</span> conversam com HTTP, <span class="highlight">services</span> concentram regras e <span class="highlight">models</span> representam o banco com Sequelize. Quando cada camada respeita sua função, o backend fica mais organizado, reutilizável e fácil de expandir.</p>
+            <div class="chips" style="margin-top: 24px;">
+              <div class="chip"><strong>Controller:</strong> entrada e resposta</div>
+              <div class="chip"><strong>Service:</strong> lógica e coordenação</div>
+              <div class="chip"><strong>Model:</strong> estrutura e persistência</div>
+            </div>
+          </div>
+          <div class="hero-panel">
+            <h3 style="margin: 0;">Navegação</h3>
+            <ul class="clean">
+              <li><strong>Teclas:</strong> use as setas do teclado para navegar.</li>
+              <li><strong>Botões:</strong> avance ou volte pelos controles inferiores.</li>
+              <li><strong>Ritmo:</strong> concentre a leitura em uma ideia principal por slide.</li>
+              <li><strong>Tema:</strong> use o botão superior para alternar entre modo claro e escuro.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <div class="nav-buttons">
+        <button id="prevBtn">← Anterior</button>
+        <button class="primary" id="nextBtn">Próximo →</button>
+      </div>
+      <div class="dots" id="dots"></div>
+      <div class="shortcut">Setas do teclado • Home • End</div>
+    </footer>
+  </main>
+
+  <div class="modal" id="imageModal" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Diagrama ampliado</h3>
+        <button type="button" id="closeModalBtn" aria-label="Fechar imagem ampliada">Fechar ✕</button>
+      </div>
+      <div class="modal-image">
+        <img src="./assets/uml.png" alt="Diagrama UML ampliado">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const currentSlide = document.getElementById('currentSlide');
+    const totalSlides = document.getElementById('totalSlides');
+    const progressBar = document.getElementById('progressBar');
+    const dotsContainer = document.getElementById('dots');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const themeToggle = document.getElementById('themeToggle');
+    const decreaseFontBtn = document.getElementById('decreaseFontBtn');
+    const increaseFontBtn = document.getElementById('increaseFontBtn');
+    const fontIndicator = document.getElementById('fontIndicator');
+    const imageModal = document.getElementById('imageModal');
+    const openDiagramBtn = document.getElementById('openDiagramBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    let index = 0;
+    const MIN_FONT_SCALE = 0.85;
+    const MAX_FONT_SCALE = 1.25;
+    const FONT_STEP = 0.05;
+
+    totalSlides.textContent = slides.length;
+
+    slides.forEach((_, slideIndex) => {
+      const dot = document.createElement('button');
+      dot.className = 'dot';
+      dot.type = 'button';
+      dot.setAttribute('aria-label', `Ir para o slide ${slideIndex + 1}`);
+      dot.addEventListener('click', () => showSlide(slideIndex));
+      dotsContainer.appendChild(dot);
+    });
+
+    function showSlide(nextIndex) {
+      index = Math.max(0, Math.min(nextIndex, slides.length - 1));
+      slides.forEach((slide, slideIndex) => {
+        slide.classList.toggle('active', slideIndex === index);
+        if (slideIndex === index) slide.scrollTop = 0;
+      });
+
+      const dots = Array.from(document.querySelectorAll('.dot'));
+      dots.forEach((dot, dotIndex) => dot.classList.toggle('active', dotIndex === index));
+
+      currentSlide.textContent = index + 1;
+      progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
+      prevBtn.disabled = index === 0;
+      nextBtn.disabled = index === slides.length - 1;
+    }
+
+    function applyTheme(theme) {
+      document.documentElement.dataset.theme = theme;
+      localStorage.setItem('presentation-theme', theme);
+      themeToggle.textContent = theme === 'dark' ? '☀️ Modo claro' : '🌙 Modo escuro';
+      themeToggle.setAttribute('aria-label', theme === 'dark' ? 'Ativar modo claro' : 'Ativar modo escuro');
+    }
+
+    function applyFontScale(scale) {
+      const normalizedScale = Math.max(MIN_FONT_SCALE, Math.min(MAX_FONT_SCALE, Number(scale.toFixed(2))));
+      document.documentElement.style.setProperty('--font-scale', normalizedScale);
+      localStorage.setItem('presentation-font-scale', String(normalizedScale));
+      fontIndicator.textContent = `${Math.round(normalizedScale * 100)}%`;
+      decreaseFontBtn.disabled = normalizedScale <= MIN_FONT_SCALE;
+      increaseFontBtn.disabled = normalizedScale >= MAX_FONT_SCALE;
+    }
+
+    function getCurrentFontScale() {
+      const currentScale = Number(getComputedStyle(document.documentElement).getPropertyValue('--font-scale'));
+      return Number.isFinite(currentScale) && currentScale > 0 ? currentScale : 1;
+    }
+
+    function openModal() {
+      imageModal.classList.add('open');
+      imageModal.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeModal() {
+      imageModal.classList.remove('open');
+      imageModal.setAttribute('aria-hidden', 'true');
+    }
+
+    prevBtn.addEventListener('click', () => showSlide(index - 1));
+    nextBtn.addEventListener('click', () => showSlide(index + 1));
+    themeToggle.addEventListener('click', () => {
+      const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+      applyTheme(nextTheme);
+    });
+    decreaseFontBtn.addEventListener('click', () => applyFontScale(getCurrentFontScale() - FONT_STEP));
+    increaseFontBtn.addEventListener('click', () => applyFontScale(getCurrentFontScale() + FONT_STEP));
+    openDiagramBtn.addEventListener('click', openModal);
+    closeModalBtn.addEventListener('click', closeModal);
+    imageModal.addEventListener('click', (event) => {
+      if (event.target === imageModal) closeModal();
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowRight' || event.key === 'PageDown') showSlide(index + 1);
+      if (event.key === 'ArrowLeft' || event.key === 'PageUp') showSlide(index - 1);
+      if (event.key === 'Home') showSlide(0);
+      if (event.key === 'End') showSlide(slides.length - 1);
+      if (event.key.toLowerCase() === 't') {
+        const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        applyTheme(nextTheme);
+      }
+      if (event.key === '+' || event.key === '=') applyFontScale(getCurrentFontScale() + FONT_STEP);
+      if (event.key === '-') applyFontScale(getCurrentFontScale() - FONT_STEP);
+      if (event.key === 'Escape' && imageModal.classList.contains('open')) closeModal();
+    });
+
+    applyTheme(document.documentElement.dataset.theme || 'dark');
+    applyFontScale(getCurrentFontScale());
+    showSlide(0);
+  </script>
+</body>
+</html>
